@@ -3,6 +3,8 @@ import React from 'react';
 // Import các thành phần của React Router
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Import các component dùng chung và các component của từng trang
 import Header from './components/Header';
 import HomePage from './pages/HomePage';       // Trang chủ
@@ -18,6 +20,20 @@ function App() {
     // Bọc toàn bộ ứng dụng trong Router để kích hoạt routing
     <Router>
       <div className="App">
+      <ToastContainer
+          position="top-right" // Vị trí hiển thị (top-left, top-center, bottom-right, etc.)
+          autoClose={3000}    // Tự động đóng sau 3000ms (3 giây)
+          hideProgressBar={false} // Hiện thanh thời gian chạy
+          newestOnTop={false}   // Thông báo mới có đè lên thông báo cũ không
+          closeOnClick          // Đóng khi click vào thông báo
+          rtl={false}           // Hỗ trợ giao diện từ phải sang trái
+          pauseOnFocusLoss    // Tạm dừng khi cửa sổ không được focus
+          draggable           // Có thể kéo thông báo
+          pauseOnHover        // Tạm dừng khi di chuột qua
+          theme="light"         // Giao diện "light", "dark", hoặc "colored"
+        />
+        {/* ======================================== */}
+
         {/* Header hiển thị trên tất cả các trang */}
         <Header />
 

@@ -7,7 +7,9 @@ import React from 'react';
 
 function HomePage() {
   return (
-    <div className="home-page"> {/* Thêm class để style nếu cần */}
+    
+      <div className="home-page home-page-background">
+       {/* Thêm class để style nếu cần */}
       <h1>Chào mừng đến với Shop Acc Game!</h1>
       <p>Nơi cung cấp tài khoản game uy tín, chất lượng.</p>
 
@@ -28,6 +30,7 @@ function HomePage() {
 
       {/* ---------------------------------------------------- */}
     </div>
+   
   );
 }
 

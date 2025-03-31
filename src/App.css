@@ -1,19 +1,142 @@
 /* src/App.css */
+
+/* Styles cho container ứng dụng chính */
 .App {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #f4f4f4; /* Màu nền nhẹ cho khu vực nội dung (tùy chỉnh) */
+  flex-direction: column; /* Bố cục dọc: Header trên, main content dưới */
+  min-height: 100vh; /* Chiều cao tối thiểu bằng màn hình */
+  /* background-color: #f4f4f4; */ /* <<< Đã XÓA hoặc comment màu nền này */
 }
 
+/* Styles cơ bản cho khu vực nội dung chính */
+/* Các trang không có background riêng có thể kế thừa từ đây */
+/* Các trang CÓ background riêng sẽ ghi đè một số thuộc tính nếu cần */
 .main-content {
-  flex-grow: 1;
-  padding: 20px;
+  flex-grow: 1; /* Chiếm không gian dọc còn lại */
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
   box-sizing: border-box;
-  color: #333; /* <<< THÊM DÒNG NÀY - Đặt màu chữ tối */
-
-  /* padding-top: 80px; */ /* Nhớ chỉ dùng khi Header dùng position: fixed */
+  color: #333; /* Màu chữ mặc định */
+  /* Không nên đặt padding/margin/max-width ở đây nếu muốn các trang con có thể chiếm toàn bộ */
 }
+
+/* ============================================== */
+/* === CSS CHO BACKGROUND TỪNG TRANG CỤ THỂ === */
+/* ============================================== */
+
+/* --- 1. Ảnh nền cụ thể (Đã sửa đường dẫn, xóa thuộc tính lặp) --- */
+.login-page-background {
+  background-image: url('/Ahri_1.jpg'); /* <<< Ảnh nền trang Login */
+}
+
+.register-page-background {
+  /* !!! Lưu ý: Tên file có khoảng trắng ('anh ahri.jpg') vẫn nên được đổi thành không dấu, không cách (ví dụ: 'anh-ahri.jpg') để đảm bảo hoạt động ổn định !!! */
+  background-image: url('/Ahri_65.jpg'); /* <<< Ảnh nền trang Register */
+}
+
+.home-page-background {
+  background-image: url('/Zoro.jpg'); /* <<< Ảnh nền trang Home */
+}
+
+/* --- 2. Thuộc tính chung cho các trang có background riêng (Giữ nguyên từ lần trước) --- */
+.login-page-background,
+.register-page-background{
+  /* --- Thuộc tính ảnh nền --- */
+ /* background-size: cover;  <<< Thử đổi thành contain */
+ background-size: cover;       /* <<< Quay lại dùng cover */
+
+ background-position: center top;  
+  background-repeat: no-repeat;       /* Không lặp lại */
+  background-attachment: fixed;       /* Nền đứng yên khi cuộn (tùy chọn) */
+  background-color: #1a1a1a;          /* Màu nền dự phòng (nên là màu tối) */
+
+  /* --- Layout để chiếm không gian & căn chỉnh nội dung --- */
+  flex-grow: 1; /* Quan trọng: Chiếm hết không gian dọc còn lại */
+  width: 100%;
+  /* Chiều cao tối thiểu bằng chiều cao màn hình trừ đi chiều cao Header */
+  /* !!! NHỚ ĐIỀU CHỈNH 60px BẰNG CHIỀU CAO HEADER THỰC TẾ !!! */
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  /* Thêm padding để nội dung bên trong không dính sát vào viền màn hình */
+  padding: 20px;
+
+  /* Ghi đè các thuộc tính có thể xung đột từ .main-content (nếu có) */
+  max-width: none;
+  margin: 0;
+
+  /* --- Style cho nội dung bên trong --- */
+  /* Đặt màu chữ cho dễ đọc trên nền tối */
+  /* !!! Có thể cần điều chỉnh màu này tùy thuộc vào ảnh nền của bạn !!! */
+  color: white;
+
+  /* Căn giữa nội dung (ví dụ: form login/register) */
+  /* Phần này giúp nội dung như form được đưa vào giữa trang */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.home-page-background {
+  /* --- Thuộc tính ảnh nền --- */
+ /* background-size: cover;  <<< Thử đổi thành contain */
+ background-size: cover;       /* <<< Quay lại dùng cover */
+
+ background-position: center center;  
+  background-repeat: no-repeat;       /* Không lặp lại */
+  background-attachment: fixed;       /* Nền đứng yên khi cuộn (tùy chọn) */
+  background-color: #1a1a1a;          /* Màu nền dự phòng (nên là màu tối) */
+
+  /* --- Layout để chiếm không gian & căn chỉnh nội dung --- */
+  flex-grow: 1; /* Quan trọng: Chiếm hết không gian dọc còn lại */
+  width: 100%;
+  /* Chiều cao tối thiểu bằng chiều cao màn hình trừ đi chiều cao Header */
+  /* !!! NHỚ ĐIỀU CHỈNH 60px BẰNG CHIỀU CAO HEADER THỰC TẾ !!! */
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  /* Thêm padding để nội dung bên trong không dính sát vào viền màn hình */
+  padding: 20px;
+
+  /* Ghi đè các thuộc tính có thể xung đột từ .main-content (nếu có) */
+  max-width: none;
+  margin: 0;
+
+  /* --- Style cho nội dung bên trong --- */
+  /* Đặt màu chữ cho dễ đọc trên nền tối */
+  /* !!! Có thể cần điều chỉnh màu này tùy thuộc vào ảnh nền của bạn !!! */
+  color: white;
+
+  /* Căn giữa nội dung (ví dụ: form login/register) */
+  /* Phần này giúp nội dung như form được đưa vào giữa trang */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* --- 3. (Tùy chọn) Lớp phủ tối màu cho dễ đọc chữ --- */
+/* Nếu ảnh nền quá sáng làm chữ khó đọc, bạn có thể bật lớp phủ này */
+/* Bằng cách bỏ comment (xóa /* và * /) */
+/*
+.login-page-background::before,
+.register-page-background::before,
+.home-page-background::before {
+  content: "";
+  position: absolute;
+  inset: 0; // Tương đương top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); // Màu đen với độ mờ 50%
+  z-index: 0; // Nằm dưới nội dung
+}
+
+// Đảm bảo nội dung thực tế nằm trên lớp phủ
+.login-page-background > *,
+.register-page-background > *,
+.home-page-background > * {
+   position: relative; // Tạo ngữ cảnh xếp chồng mới
+   z-index: 1; // Nằm trên lớp phủ (::before)
+}
+*/
+
+/* --- Các CSS rules khác của bạn có thể nằm ở đây --- */
