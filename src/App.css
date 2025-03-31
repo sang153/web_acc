@@ -1,0 +1,19 @@
+/* src/App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f4; /* Màu nền nhẹ cho khu vực nội dung (tùy chỉnh) */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: #333; /* <<< THÊM DÒNG NÀY - Đặt màu chữ tối */
+
+  /* padding-top: 80px; */ /* Nhớ chỉ dùng khi Header dùng position: fixed */
+}
