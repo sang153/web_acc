@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column; /* Bố cục dọc: Header trên, main content dưới */
   min-height: 100vh; /* Chiều cao tối thiểu bằng màn hình */
-  /* background-color: #f4f4f4; */ /* <<< Đã XÓA hoặc comment màu nền này */
+   background-color: #121212;  /* <<< Đã XÓA hoặc comment màu nền này */
 }
 
 /* Styles cơ bản cho khu vực nội dung chính */

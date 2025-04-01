@@ -11,7 +11,7 @@ import HomePage from './pages/HomePage';       // Trang chủ
 import LoginPage from './pages/LoginPage';       // Trang đăng nhập
 import AccountsPage from './pages/AccountsPage'; // Trang danh sách tài khoản
 import RegisterPage from './pages/RegisterPage'; // Trang đăng ký
-
+import Footer from './components/Footer';
 // Import CSS cho App
 import './App.css';
 
@@ -64,7 +64,7 @@ function App() {
         </main>
 
         {/* Bạn có thể thêm component Footer ở đây nếu muốn */}
-        {/* <Footer /> */}
+        <Footer /> 
       </div>
     </Router>
   );
