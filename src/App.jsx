@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';       // Trang đăng nhập
 import AccountsPage from './pages/AccountsPage'; // Trang danh sách tài khoản
 import RegisterPage from './pages/RegisterPage'; // Trang đăng ký
 import Footer from './components/Footer';
+import NapTienPage from './pages/NapTienPage'; // <<< Import component trang nạp tiền
 // Import CSS cho App
 import './App.css';
 
@@ -52,6 +53,12 @@ function App() {
 
             {/* Route cho trang đăng ký */}
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/nap-tien" element={
+                // <ProtectedRoute> {/* <<< Bọc trong ProtectedRoute */}
+                  <NapTienPage />
+                // </ProtectedRoute>
+              }
+            />
 
             {/* === Bạn có thể thêm các Route khác ở đây === */}
             {/* Ví dụ:

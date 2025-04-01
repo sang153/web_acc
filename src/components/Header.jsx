@@ -1,14 +1,14 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom'; // <<< Import Link và useNavigate
-import './Header.css';
+import { Link, useNavigate } from 'react-router-dom';
+import './Header.css'; // Đảm bảo bạn có file CSS này hoặc style theo cách khác
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isLoggedIn, user, logout } = useContext(AuthContext);
   const isAdmin = user?.VaiTro === 1;
-  const navigate = useNavigate(); // <<< Dùng để chuyển hướng sau logout
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -27,47 +27,60 @@ function Header() {
   const handleLogout = () => {
      if (typeof logout === 'function') {
          logout();
-         navigate('/'); // <<< Chuyển về trang chủ sau khi logout
+         navigate('/'); // Chuyển về trang chủ
      } else {
          console.error("Hàm logout không được cung cấp bởi AuthContext");
      }
-     setIsMobileMenuOpen(false);
+     setIsMobileMenuOpen(false); // Đóng menu mobile sau khi logout
   }
 
-  // Hàm xử lý khi nhấn vào link trên mobile menu
+  // Hàm xử lý khi nhấn vào link trên mobile menu để đóng menu lại
   const handleMobileLinkClick = () => {
       setIsMobileMenuOpen(false);
   }
 
   return (
+    // Thêm class 'mobile-menu-active' khi menu mobile mở để có thể style riêng
     <header className={`app-header ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
       <nav className="main-nav">
         <div className="logo">
-          {/* Thay <a> bằng <Link> */}
           <Link to="/">SHOPACCRIOT.COM</Link>
         </div>
 
+        {/* Nút bật/tắt menu mobile */}
         <button className="mobile-menu-icon" onClick={toggleMobileMenu} aria-label="Mở menu" aria-expanded={isMobileMenuOpen}>
           ☰
         </button>
 
+        {/* Container chứa các link điều hướng, xử lý hiển thị mobile */}
         <div className={`nav-links-container ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="nav-links">
+            {/* Nút đóng menu trên mobile */}
             <li className="mobile-close-item">
                 <button className="mobile-close-icon" onClick={toggleMobileMenu} aria-label="Đóng menu">×</button>
             </li>
-            {/* Thay <a> bằng <Link>, thêm onClick={handleMobileLinkClick} */}
+
+            {/* Các link chính */}
             <li><Link to="/" onClick={handleMobileLinkClick}>TRANG CHỦ</Link></li>
             <li><Link to="/accounts" onClick={handleMobileLinkClick}>MUA ACC</Link></li>
 
-            { isLoggedIn && isAdmin && (
+            {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - MOBILE <<<=== */}
+            {isLoggedIn && (
+              <li><Link to="/nap-tien" onClick={handleMobileLinkClick}>NẠP TIỀN</Link></li>
+            )}
+            {/* ===================================================================== */}
+
+
+            {/* Link Quản lý chỉ hiển thị cho Admin đã login */}
+            {isLoggedIn && isAdmin && (
               <li><Link to="/admin/quan-ly-acc" onClick={handleMobileLinkClick}>QUẢN LÝ ACC</Link></li>
             )}
 
+            {/* Các link Đăng nhập/Đăng ký/Đăng xuất hiển thị trên Mobile */}
             {isLoggedIn ? (
               <>
+                {/* Có thể thêm link profile ở đây nếu muốn */}
                 {/* <li><Link to="/profile" onClick={handleMobileLinkClick}>Tài khoản ({user?.HoTen})</Link></li> */}
-                {/* Logout dùng button hoặc thẻ a với onClick */}
                 <li className="mobile-only-auth"><a href="#!" onClick={handleLogout}>Đăng xuất</a></li>
               </>
             ) : (
@@ -79,16 +92,21 @@ function Header() {
           </ul>
         </div>
 
+        {/* Các link xác thực chỉ hiển thị trên Desktop */}
         <div className="auth-links desktop-only-auth">
           {isLoggedIn ? (
             <>
+              {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - DESKTOP <<<=== */}
+              <Link to="/nap-tien" className="auth-link-item">NẠP TIỀN</Link>
+              {/* ======================================================================= */}
+
+              {/* Có thể hiển thị tên user nếu muốn */}
               {/* <span style={{ marginRight: '15px', color: '#ddd' }}>Chào, {user?.HoTen}!</span> */}
-              {/* Nút đăng xuất */}
-              <button onClick={handleLogout} className="logout-button">Đăng xuất</button> {/* Style nút này trong CSS nếu cần */}
+
+              <button onClick={handleLogout} className="logout-button">Đăng xuất</button>
             </>
           ) : (
             <>
-              {/* Thay <a> bằng <Link> */}
               <Link to="/login" className="auth-link-item">Đăng nhập</Link>
               <Link to="/register" className="auth-link-item">Đăng ký</Link>
             </>
@@ -99,7 +117,9 @@ function Header() {
   );
 }
 
-// CSS cho nút logout và link auth (thêm vào Header.css nếu muốn)
+export default Header;
+
+/* --- CSS gợi ý cho nút logout và link (thêm vào Header.css) --- */
 /*
 .logout-button, .auth-link-item {
   color: white;
@@ -109,17 +129,24 @@ function Header() {
   border: 1px solid white;
   border-radius: 4px;
   transition: background-color 0.2s ease, color 0.2s ease;
-  background-color: transparent; // Cho nút logout
-  cursor: pointer; // Cho nút logout
-  font-size: inherit; // Cho nút logout
-  font-family: inherit; // Cho nút logout
+  background-color: transparent;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 .logout-button:hover, .auth-link-item:hover {
     background-color: white;
     color: #333;
 }
+
+// CSS để ẩn/hiện link theo màn hình (ví dụ)
+.mobile-only-auth { display: none; } // Mặc định ẩn trên desktop
+.desktop-only-auth { display: flex; align-items: center; } // Mặc định hiện trên desktop
+
+@media (max-width: 768px) {
+  .mobile-only-auth { display: block; } // Hiện trên mobile
+  .desktop-only-auth { display: none; } // Ẩn trên mobile
+  // Cần thêm các style khác cho menu mobile hoạt động đúng
+}
 */
-
-
-export default Header;

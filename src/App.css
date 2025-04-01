@@ -36,10 +36,13 @@
 .home-page-background {
   background-image: url('/Zoro.jpg'); /* <<< Ảnh nền trang Home */
 }
-
+.naptien-page-background {
+  background-image: url('/ire.jpg'); /* <<< Nhớ thay đúng tên file ảnh của bạn */
+}
 /* --- 2. Thuộc tính chung cho các trang có background riêng (Giữ nguyên từ lần trước) --- */
 .login-page-background,
-.register-page-background{
+.register-page-background
+.naptien-page-background{
   /* --- Thuộc tính ảnh nền --- */
  /* background-size: cover;  <<< Thử đổi thành contain */
  background-size: cover;       /* <<< Quay lại dùng cover */
@@ -76,7 +79,18 @@
   align-items: center;
 }
 
-
+/* Trong App.css */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+  align-items: center;     /* Căn giữa nội dung theo chiều ngang */
+  text-align: center;      /* Căn giữa text nếu cần */
+  width: 100%;             /* Chiếm hết chiều rộng của cha */
+  height: 100%;            /* Cố gắng chiếm hết chiều cao của cha */
+  /* Hoặc dùng min-height: 100%; nếu cần linh hoạt hơn */
+  /* min-height: 100%; */
+}
 
 .home-page-background {
   /* --- Thuộc tính ảnh nền --- */

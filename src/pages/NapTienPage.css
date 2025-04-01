@@ -1,0 +1,74 @@
+/* src/pages/NapTienPage.css */
+
+.nap-tien-page-container {
+    padding: 40px;
+    color: #333; /* Màu chữ mặc định cho trang này */
+    text-align: center;
+    /* Bạn có thể thêm các style khác cho layout chung của trang ở đây */
+    /* Ví dụ: nếu muốn dùng lại ảnh nền như trang login */
+    /* background-image: url('/your-background.jpg'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* min-height: 100%; */ /* Nếu áp dụng trong cấu trúc sticky footer */
+    /* display: flex; */ /* Nếu muốn căn giữa toàn bộ nội dung theo cách khác */
+    /* flex-direction: column; */
+    /* align-items: center; */
+  }
+  
+  .qr-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .qr-code-image {
+    max-width: 250px;
+    height: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: white; /* Thêm nền trắng để QR dễ quét hơn */
+    margin-top: 15px; /* Tạo khoảng cách với text phía trên */
+  }
+  
+  .instructions-box {
+    background-color: #f8f9fa;
+    padding: 25px; /* Tăng padding */
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    display: inline-block; /* Giữ cho box vừa với nội dung */
+    text-align: left; /* Căn lề trái cho nội dung hướng dẫn */
+    margin-top: 20px;
+    max-width: 600px; /* Giới hạn chiều rộng tối đa nếu cần */
+  }
+  
+  .instructions-box h2 {
+      margin-top: 0; /* Bỏ margin trên của tiêu đề */
+      text-align: center; /* Căn giữa lại tiêu đề nếu muốn */
+      margin-bottom: 20px;
+  }
+  
+  .memo-label {
+    font-weight: bold;
+    color: red;
+    display: block; /* Hiển thị trên 1 dòng riêng */
+    margin-bottom: 5px;
+  }
+  
+  .memo-text {
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #e9ecef;
+    padding: 10px 15px; /* Tăng padding */
+    border-radius: 4px;
+    margin: 10px 0 20px 0; /* Thêm margin dưới */
+    display: inline-block; /* Vừa đủ chữ */
+    word-break: break-all; /* Đảm bảo không bị tràn nếu tên đăng nhập dài */
+  }
+  
+  .instructions-box p {
+      margin-bottom: 10px; /* Khoảng cách giữa các dòng hướng dẫn */
+      line-height: 1.6; /* Tăng khoảng cách dòng */
+  }
+  
+  .instructions-box p:last-child {
+      margin-bottom: 0; /* Bỏ margin cho dòng cuối */
+  }
