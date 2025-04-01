@@ -235,7 +235,7 @@ function RegisterPage() {
         </button>
         {/* ----------------------------- */}
 
-        <p style={{ marginTop: '20px' }}>
+        <p style={{ marginTop: '20px',color:'black' }}>
             Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
         </p>
       </form>

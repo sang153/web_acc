@@ -198,7 +198,7 @@ function LoginPage() {
           {isGoogleLoading ? 'Đang xử lý...' : 'Đăng nhập bằng Google'}
         </button>
 
-        <p style={{ marginTop: '20px' }}>
+        <p style={{ marginTop: '20px', color:'black'}}>
             Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
         </p>
       </form>

@@ -41,7 +41,7 @@
 }
 /* --- 2. Thuộc tính chung cho các trang có background riêng (Giữ nguyên từ lần trước) --- */
 .login-page-background,
-.register-page-background
+.register-page-background,
 .naptien-page-background{
   /* --- Thuộc tính ảnh nền --- */
  /* background-size: cover;  <<< Thử đổi thành contain */
