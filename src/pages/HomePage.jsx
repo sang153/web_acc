@@ -10,7 +10,7 @@ function HomePage() {
     
       <div className="home-page home-page-background">
        {/* Thêm class để style nếu cần */}
-      <h1>Chào mừng đến với Shop Acc Game!</h1>
+      <h1>Chào mừng đến với Shop Acc Game.com!</h1>
       <p>Nơi cung cấp tài khoản game uy tín, chất lượng.</p>
 
       {/* --- Khu vực hiển thị nội dung khác của trang chủ --- */}
