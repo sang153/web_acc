@@ -1,0 +1,98 @@
+/* src/components/AccountCategoryCard.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&display=swap'); /* Sử dụng font Teko */
+
+.card {
+  font-family: 'Teko', sans-serif; /* Sử dụng font Teko */
+  width: 100%; /* Chiếm hết chiều rộng của grid cell */
+  aspect-ratio: 3 / 4; /* Tỉ lệ khung hình (có thể điều chỉnh) */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; /* Cho phép định vị tuyệt đối lớp phủ và nội dung */
+  overflow: hidden; /* Ẩn các phần tràn ra ngoài */
+  border-radius: 6px; /* Bo góc nhẹ */
+  color: #fff; /* Màu chữ mặc định là trắng */
+  display: flex; /* Sử dụng flex để căn chỉnh nội dung (đẩy nút xuống dưới) */
+  flex-direction: column; /* Xếp nội dung theo chiều dọc */
+  justify-content: flex-end; /* Đẩy nội dung xuống dưới cùng */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Viền mờ nhẹ */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Hiệu ứng nhấc lên khi hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0; /* top: 0; left: 0; right: 0; bottom: 0; */
+  /* Gradient từ trong suốt ở trên -> đen mờ ở dưới */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 80%, rgba(0, 0, 0, 0.9) 100%);
+  z-index: 1; /* Nằm trên background nhưng dưới content */
+}
+
+.content {
+  position: relative; /* Nằm trên overlay */
+  z-index: 2;
+  padding: 15px; /* Khoảng cách từ viền */
+  text-align: center; /* Căn giữa text */
+}
+
+.topText {
+  font-size: 0.9em;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.mainTitle {
+  font-size: 2.8em; /* Kích thước lớn */
+  font-weight: 700; /* Đậm */
+  color: #fff;
+  line-height: 1; /* Chiều cao dòng gần */
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.subTitle {
+  font-size: 1.3em;
+  font-weight: 500;
+  color: #eee;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+}
+
+.accountCount {
+  font-size: 1em;
+  font-weight: 400;
+  color: #ccc;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.button {
+  display: inline-block; /* Để áp dụng padding */
+  background-color: #e13438; /* Màu đỏ/cam giống ảnh */
+  color: #fff;
+  border: none;
+  padding: 10px 25px;
+  font-size: 1.1em;
+  font-weight: 700; /* Đậm */
+  font-family: 'Teko', sans-serif; /* Đảm bảo nút cũng dùng font Teko */
+  text-transform: uppercase;
+  text-decoration: none; /* Bỏ gạch chân của Link */
+  border-radius: 4px; /* Bo góc nhẹ cho nút */
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.5px;
+}
+
+.button:hover {
+  background-color: #c02a2e; /* Màu đậm hơn khi hover */
+  transform: scale(1.05); /* Phóng to nhẹ */
+}

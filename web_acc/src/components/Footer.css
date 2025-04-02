@@ -1,0 +1,87 @@
+/* src/components/Footer/Footer.css */
+
+/* --- General Footer Styling --- */
+.site-footer {
+    background-color: #222; /* Màu nền tối giống ảnh mẫu */
+    color: #ccc;           /* Màu chữ mặc định (xám nhạt) */
+    padding: 40px 0 20px 0; /* Khoảng đệm trên/dưới */
+    font-size: 14px;       /* Cỡ chữ cơ bản */
+    line-height: 1.6;      /* Chiều cao dòng cho dễ đọc */
+    margin-top: 50px;      /* Tạo khoảng cách với nội dung bên trên */
+    border-top: 1px solid #444; /* Đường kẻ mỏng phía trên footer */
+  }
+  
+  /* --- Container Wrapper --- */
+  .footer-container {
+    max-width: 1140px;      /* Giới hạn chiều rộng tối đa của nội dung */
+    margin: 0 auto;         /* Căn giữa container */
+    padding: 0 15px;        /* Khoảng đệm trái/phải để nội dung không sát viền */
+    display: flex;          /* Sử dụng Flexbox để sắp xếp các cột */
+    flex-wrap: wrap;        /* Cho phép các cột xuống dòng trên màn hình nhỏ */
+    justify-content: space-between; /* Phân bố khoảng cách giữa các cột */
+    gap: 20px;              /* Khoảng cách giữa các cột khi chúng cùng hàng */
+  }
+  
+  /* --- Styling for Each Section/Column --- */
+  .footer-section {
+    flex: 1;                /* Cho phép các cột co giãn linh hoạt */
+    min-width: 200px;       /* Chiều rộng tối thiểu trước khi xuống dòng */
+    margin-bottom: 20px;    /* Khoảng cách dưới mỗi cột */
+  }
+  
+  /* Styling for Headings within Sections (h4) */
+  .footer-section h4 {
+    color: #fff;            /* Màu trắng cho tiêu đề */
+    margin-top: 0;          /* Bỏ margin trên mặc định */
+    margin-bottom: 15px;    /* Khoảng cách dưới tiêu đề */
+    font-size: 16px;        /* Cỡ chữ tiêu đề */
+    font-weight: bold;      /* In đậm tiêu đề */
+  }
+  
+  /* Styling for Paragraphs within Sections */
+  .footer-section p {
+    margin-bottom: 10px;    /* Khoảng cách giữa các đoạn văn */
+  }
+  
+  /* Styling for Links within Sections */
+  .footer-section a {
+    color: #aaa;            /* Màu liên kết (xám nhạt hơn) */
+    text-decoration: none;  /* Bỏ gạch chân mặc định */
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+  }
+  
+  .footer-section a:hover {
+    color: #fff;            /* Đổi màu trắng khi di chuột qua */
+    text-decoration: underline; /* Thêm gạch chân khi di chuột qua */
+  }
+  
+  /* --- Styling for the Bottom Copyright Area --- */
+  .footer-bottom {
+    text-align: center;     /* Căn giữa nội dung */
+    margin-top: 30px;       /* Khoảng cách với các cột nội dung bên trên */
+    padding-top: 20px;      /* Khoảng đệm phía trên */
+    border-top: 1px solid #444; /* Đường kẻ phân cách */
+    color: #888;           /* Màu chữ mờ hơn cho copyright */
+  }
+  
+  .footer-bottom p {
+    margin: 0;              /* Bỏ margin mặc định của thẻ p */
+  }
+  
+  /* --- Optional: Responsive Adjustments for Smaller Screens --- */
+  @media (max-width: 768px) {
+    .footer-container {
+      flex-direction: column; /* Xếp các cột theo chiều dọc */
+      text-align: center;     /* Căn giữa nội dung trong các cột */
+    }
+  
+    .footer-section {
+      min-width: 100%;       /* Cho các cột chiếm toàn bộ chiều rộng */
+      margin-bottom: 30px;   /* Tăng khoảng cách giữa các cột khi xếp dọc */
+    }
+  
+    /* Đảm bảo cột cuối cùng không có margin dưới quá lớn khi xếp dọc */
+    .footer-section:last-child {
+      margin-bottom: 0;
+    }
+  }

@@ -1,0 +1,163 @@
+/* src/components/ShopIntro.module.css */
+
+/* === THAY ĐỔI FONT CHỮ === */
+/* Import font Teko từ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;700&display=swap');
+
+/* --- Container chính --- */
+.introContainer {
+  /* Sử dụng font Teko mới */
+  font-family: 'Teko', sans-serif;
+  /* --- Giữ nguyên các style khác --- */
+  padding: 35px 45px;
+  text-align: center;
+  max-width: 750px;
+  width: 90%;
+  margin: 20px;
+  background-color: rgba(10, 10, 10, 0.7);
+  border: 4px solid #000000;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 229, 255, 0.25);
+  animation: fadeInScale 0.5s ease-out forwards;
+  letter-spacing: 0.5px; /* Teko có thể cần ít letter-spacing hơn Orbitron */
+}
+
+/* --- Tiêu đề chính (h1) --- */
+.title {
+  margin-top: 0;
+  margin-bottom: 15px; /* Giảm mb một chút */
+  /* Tăng font-size vì Teko hẹp hơn Orbitron */
+  font-size: 3.5em; /* Điều chỉnh để giống ảnh */
+  font-weight: 700; /* Sử dụng weight đậm đã import */
+  color: #ffffff;
+  line-height: 1.1; /* Điều chỉnh line-height cho Teko */
+  text-transform: uppercase;
+  text-shadow:
+    0 0 7px rgba(0, 229, 255, 0.9),
+    0 0 12px rgba(0, 229, 255, 0.7),
+    0 0 20px rgba(0, 229, 255, 0.5),
+    1px 1px 2px rgba(0, 0, 0, 0.8); /* Giảm bóng đổ đen một chút */
+}
+
+/* --- Tên shop trong tiêu đề --- */
+.shopName {
+  color: #00e5ff;
+  text-shadow:
+    0 0 10px rgba(0, 229, 255, 1),
+    0 0 20px rgba(0, 229, 255, 0.8),
+    0 0 30px rgba(0, 229, 255, 0.6);
+}
+
+/* --- Dòng giới thiệu phụ (p) --- */
+.subtitle {
+  margin-bottom: 25px;
+  font-size: 1.8em; /* Tăng size cho Teko */
+  font-weight: 400; /* Sử dụng weight thường */
+  color: #e0e0e0;
+  text-shadow:
+    0 0 5px rgba(0, 229, 255, 0.5),
+    1px 1px 1px rgba(0, 0, 0, 0.7); /* Giảm bóng đổ đen */
+  line-height: 1.5; /* Điều chỉnh */
+}
+
+/* --- Dòng kêu gọi hành động (p) --- */
+.callToAction {
+  font-size: 1.5em; /* Tăng size cho Teko */
+  font-weight: 400;
+  color: #bdbdbd;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); /* Giảm bóng đổ đen */
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* --- Phần chữ được làm nổi bật (Liên Minh Huyền Thoại) --- */
+.highlight {
+  color: #fff;
+  font-weight: 700; /* Có thể dùng weight đậm hơn cho phần highlight */
+  text-shadow: 0 0 7px rgba(0, 229, 255, 0.7);
+}
+
+/* --- Animation (Giữ nguyên) --- */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Nút bấm (Giữ nguyên font Orbitron hoặc đổi thành Teko) --- */
+.ctaButton {
+  font-family: 'Teko', sans-serif; /* Đổi font cho nút luôn */
+  /* --- Các style khác giữ nguyên --- */
+  margin-top: 30px;
+  padding: 10px 30px; /* Điều chỉnh padding cho Teko */
+  font-size: 1.4em; /* Tăng size nút */
+  font-weight: 700; /* Đậm */
+  color: #ffffff;
+  background: linear-gradient(45deg, #00bfff, #007bff);
+  border: 2px solid #00e5ff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ctaButton:hover {
+  background: linear-gradient(45deg, #00aeee, #006adc);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+/* === THÊM STYLE CHO NÚT ĐÓNG (X) === */
+.closeButton {
+    position: absolute; /* Định vị tuyệt đối so với container cha */
+    top: 10px;          /* Khoảng cách từ lề trên của container */
+    right: 15px;         /* Khoảng cách từ lề phải của container */
+    background: rgba(255, 255, 255, 0.2); /* Nền mờ nhẹ */
+    color: #ffffff;     /* Màu chữ X (trắng) */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Viền trắng mờ */
+    border-radius: 50%; /* Bo tròn thành hình tròn */
+    width: 30px;         /* Chiều rộng */
+    height: 30px;        /* Chiều cao */
+    font-size: 18px;     /* Cỡ chữ X */
+    font-weight: bold;   /* Đậm */
+    line-height: 28px;  /* Căn chữ X vào giữa theo chiều dọc (gần bằng height - border*2) */
+    text-align: center;  /* Căn chữ X vào giữa theo chiều ngang */
+    cursor: pointer;     /* Biểu tượng con trỏ tay */
+    padding: 0;          /* Bỏ padding mặc định */
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; /* Hiệu ứng chuyển đổi */
+    z-index: 10; /* Đảm bảo nút nằm trên các nội dung khác */
+  }
+  
+  .closeButton:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Nền sáng hơn khi hover */
+    color: #fff;
+    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+  }
+  
+  /* --- Đảm bảo introContainer có position relative --- */
+  /* Cần thêm hoặc kiểm tra lại dòng này trong style của .introContainer nếu chưa có */
+  .introContainer {
+    /* ... các style cũ ... */
+    position: relative; /* Quan trọng để .closeButton định vị đúng */
+    font-family: 'Teko', sans-serif;
+    padding: 35px 45px;
+    text-align: center;
+    max-width: 750px;
+    width: 90%;
+    margin: 20px;
+    background-color: rgba(10, 10, 10, 0.7);
+    border: 4px solid #000000;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 229, 255, 0.25);
+    animation: fadeInScale 0.5s ease-out forwards;
+    letter-spacing: 0.5px;
+  }
+  
