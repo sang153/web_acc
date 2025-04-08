@@ -94,11 +94,20 @@
   
   .desktop-only-auth {
     display: flex;
+    align-items: center;
+    gap: 15px; /* <<< Thêm dòng này */
   }
   .mobile-only-auth {
       display: none;
   }
-  
+  .mobile-only-nav-item {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .mobile-only-nav-item {
+      display: list-item; /* Hoặc 'block' tùy layout mobile bạn muốn */
+    }
+  }
   /* Media Query cho màn hình nhỏ */
   @media (max-width: 768px) {
     .main-nav {
@@ -184,3 +193,31 @@
       margin-left: 10px;
     }
   }
+  /* Trong Header.css - Thêm vào cuối file */
+
+.logout-button {
+  /* Reset margin nếu đã thêm trước đó */
+  /* margin-left: 0; */
+
+  /* Style cơ bản giống link */
+  padding: 8px 12px;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: white; /* Chữ màu trắng */
+  background-color: transparent; /* Nền trong suốt */
+
+  /* Các thuộc tính khác */
+  cursor: pointer;
+  font-size: inherit; /* Kế thừa cỡ chữ */
+  font-family: inherit; /* Kế thừa font */
+  text-decoration: none; /* Bỏ gạch chân nếu có */
+  display: inline-block; /* Đảm bảo nó hiển thị đúng */
+
+  /* Hiệu ứng */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: #333; /* Chữ màu đen khi hover */
+}

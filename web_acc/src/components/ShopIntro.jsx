@@ -18,7 +18,7 @@ function ShopIntro({ onClose }) {
        </button>
       <h1 className={styles.title}>
         {/* Phần tên shop được bọc trong span để style riêng nếu muốn */}
-        Chào mừng đến với <span className={styles.shopName}>Shop Acc Game.com!</span>
+        Chào mừng đến với <span className={styles.shopName}>Shop AccGameRiot.com!</span>
       </h1>
       <p className={styles.subtitle}>
         Nơi cung cấp tài khoản game uy tín, chất lượng.

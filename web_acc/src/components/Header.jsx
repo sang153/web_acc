@@ -66,7 +66,9 @@ function Header() {
 
             {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - MOBILE <<<=== */}
             {isLoggedIn && (
-              <li><Link to="/nap-tien" onClick={handleMobileLinkClick}>NẠP TIỀN</Link></li>
+              <li className="mobile-only-nav-item"> 
+                <Link to="/nap-tien" onClick={handleMobileLinkClick}>NẠP TIỀN</Link>
+              </li>
             )}
             {/* ===================================================================== */}
 
