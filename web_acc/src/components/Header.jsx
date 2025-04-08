@@ -63,7 +63,13 @@ function Header() {
             {/* Các link chính */}
             <li><Link to="/" onClick={handleMobileLinkClick}>TRANG CHỦ</Link></li>
             <li><Link to="/accounts" onClick={handleMobileLinkClick}>MUA ACC</Link></li>
-
+            {isLoggedIn && 
+            (
+             <li>
+              {/* Đặt đường dẫn tạm thời là /sell-account, bạn sẽ tạo Route cho nó sau */}
+                  <Link to="/sell-account" onClick={handleMobileLinkClick}>BÁN ACC</Link>
+                </li>
+            )}
             {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - MOBILE <<<=== */}
             {isLoggedIn && (
               <li className="mobile-only-nav-item"> 

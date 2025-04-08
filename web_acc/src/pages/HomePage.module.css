@@ -1,78 +1,150 @@
 /* src/pages/HomePage.module.css */
 
-/* --- Khu vực chứa các thẻ danh mục --- */
-.categorySection {
-    width: 90%; /* Chiều rộng của section */
-    max-width: 1200px; /* Chiều rộng tối đa */
-    /* Khoảng cách với phần giới thiệu ở trên và footer ở dưới */
-    /* Có thể cần điều chỉnh margin-top tùy thuộc vào chiều cao của ShopIntro */
-    margin: 60px auto 80px auto;
-    padding: 30px; /* Padding bên trong section */
-    /* Nền đen hơi mờ để làm nổi bật các card (tùy chọn) */
-    background-color: rgba(10, 10, 10, 0.4);
-    border-radius: 10px; /* Bo góc nhẹ */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
-  }
-  
-  /* --- Tiêu đề của khu vực danh mục --- */
-  .sectionTitle {
-    color: #fff;
-    text-align: center;
-    font-family: 'Teko', sans-serif; /* Sử dụng cùng font với card */
-    font-size: 2.8em; /* Cỡ chữ lớn */
-    font-weight: 700;
-    margin-top: 0; /* Bỏ margin trên */
-    margin-bottom: 40px; /* Khoảng cách với lưới card */
-    text-transform: uppercase;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Bóng đổ */
-    letter-spacing: 1.5px;
-  }
-  
-  /* --- Lưới chứa các thẻ danh mục --- */
+/* --- Khu vực chứa các thẻ/tài khoản nổi bật --- */ /* Đổi tên comment nếu muốn */
+.categorySection { /* Bạn có thể đổi tên class này thành featuredSection nếu muốn */
+  width: 90%; /* Chiều rộng của section */
+  max-width: 1200px; /* Chiều rộng tối đa */
+  /* Khoảng cách với phần giới thiệu ở trên và footer ở dưới */
+  margin: 60px auto 80px auto;
+  padding: 30px; /* Padding bên trong section */
+  background-color: rgba(10, 10, 10, 0.4); /* Nền đen hơi mờ (tùy chọn) */
+  border-radius: 10px; /* Bo góc nhẹ */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+}
+
+/* --- Tiêu đề của khu vực --- */
+.sectionTitle {
+  color: #fff;
+  text-align: center;
+  font-family: 'Teko', sans-serif; /* Font ví dụ */
+  font-size: 2.8em; /* Cỡ chữ lớn */
+  font-weight: 700;
+  margin-top: 0; /* Bỏ margin trên */
+  margin-bottom: 40px; /* Khoảng cách với lưới card */
+  text-transform: uppercase;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Bóng đổ */
+  letter-spacing: 1.5px;
+}
+
+/* --- Lưới chứa các thẻ tài khoản nổi bật --- */
+.categoryGrid { /* Bạn có thể đổi tên class này thành featuredGrid nếu muốn */
+  display: grid;
+  /* Mặc định tạo 4 cột bằng nhau trên màn hình lớn */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px; /* Khoảng cách lớn hơn một chút giữa các card */
+}
+
+/* --- Responsive adjustments cho lưới --- */
+
+/* Cho màn hình nhỏ hơn (ví dụ: tablet ngang) - 3 cột */
+@media (max-width: 1100px) {
   .categoryGrid {
-    display: grid;
-    /* Mặc định tạo 4 cột bằng nhau trên màn hình lớn */
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px; /* Khoảng cách lớn hơn một chút giữa các card */
-  }
-  
-  /* --- Responsive adjustments --- */
-  
-  /* Cho màn hình nhỏ hơn (ví dụ: tablet ngang) - 3 cột */
-  @media (max-width: 1100px) {
-    .categoryGrid {
       grid-template-columns: repeat(3, 1fr);
       gap: 25px;
-    }
   }
-  
-  
-  /* Cho màn hình tablet đứng - 2 cột */
-  @media (max-width: 850px) {
-    .categoryGrid {
+}
+
+/* Cho màn hình tablet đứng - 2 cột */
+@media (max-width: 850px) {
+  .categoryGrid {
       grid-template-columns: repeat(2, 1fr);
       gap: 25px;
-    }
-    .categorySection {
+  }
+  .categorySection {
       width: 95%;
       padding: 25px;
-    }
-     .sectionTitle {
-       font-size: 2.4em;
-       margin-bottom: 30px;
-     }
   }
-  
-  /* Cho màn hình điện thoại - 1 cột */
-  @media (max-width: 576px) {
-    .categoryGrid {
+  .sectionTitle {
+      font-size: 2.4em;
+      margin-bottom: 30px;
+  }
+}
+
+/* Cho màn hình điện thoại - 1 cột */
+@media (max-width: 576px) {
+  .categoryGrid {
       grid-template-columns: 1fr; /* Mỗi hàng 1 card */
       gap: 25px; /* Khoảng cách giữa các card khi xếp dọc */
-    }
-    .categorySection {
-       padding: 20px 15px;
-    }
-     .sectionTitle {
-       font-size: 2em; /* Giảm cỡ chữ tiêu đề trên mobile */
-     }
   }
+  .categorySection {
+      padding: 20px 15px;
+  }
+  .sectionTitle {
+      font-size: 2em; /* Giảm cỡ chữ tiêu đề trên mobile */
+  }
+}
+
+/* ================================================================== */
+/* === PHẦN BỔ SUNG: STYLES CHO THẺ TÀI KHOẢN NỔI BẬT === */
+/* ================================================================== */
+
+/* Styles for the individual featured account card */
+/* Class này được dùng trong HomePage.jsx: styles.featuredAccountCard */
+.featuredAccountCard {
+  background-color: rgba(40, 40, 40, 0.9);
+  border: 1px solid #666;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  color: white;
+  text-shadow: none;
+}
+
+.featuredAccountCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Style for the description text inside the card */
+/* Class này được dùng trong HomePage.jsx: styles.accountDescription */
+.accountDescription {
+  margin-bottom: 15px;
+  font-size: 0.95em;
+  line-height: 1.5;
+  max-height: 6em; /* Limit height (approx 4 lines) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e0e0e0;
+}
+
+/* Style for the 'Mô tả:' label part */
+.accountDescription strong {
+  color: white;
+  margin-right: 5px;
+}
+
+/* Style for the price text inside the card */
+/* Class này được dùng trong HomePage.jsx: styles.accountPrice */
+.accountPrice {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ffeb3b;
+  margin-bottom: 15px;
+  margin-top: auto; /* Push price down if description is short */
+}
+
+/* Style for the details button inside the card */
+/* Class này được dùng trong HomePage.jsx: styles.detailsButton */
+.detailsButton {
+  display: block;
+  text-decoration: none;
+  background-color: #0088cc;
+  color: white !important;
+  padding: 10px 15px;
+  border-radius: 4px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.detailsButton:hover {
+  background-color: #006fa6;
+  color: white !important;
+}
+/* ================================================================== */

@@ -1,74 +1,160 @@
 /* src/pages/NapTienPage.css */
 
-.nap-tien-page-container {
-    padding: 40px;
-    color: #333; /* Màu chữ mặc định cho trang này */
-    text-align: center;
-    /* Bạn có thể thêm các style khác cho layout chung của trang ở đây */
-    /* Ví dụ: nếu muốn dùng lại ảnh nền như trang login */
-    /* background-image: url('/your-background.jpg'); */
-    /* background-size: cover; */
-    /* background-position: center; */
-    /* min-height: 100%; */ /* Nếu áp dụng trong cấu trúc sticky footer */
-    /* display: flex; */ /* Nếu muốn căn giữa toàn bộ nội dung theo cách khác */
-    /* flex-direction: column; */
-    /* align-items: center; */
-  }
-  
-  .qr-section {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-  
-  .qr-code-image {
-    max-width: 250px;
-    height: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: white; /* Thêm nền trắng để QR dễ quét hơn */
-    margin-top: 15px; /* Tạo khoảng cách với text phía trên */
-  }
-  
-  .instructions-box {
-    background-color: #f8f9fa;
-    padding: 25px; /* Tăng padding */
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
-    display: inline-block; /* Giữ cho box vừa với nội dung */
-    text-align: left; /* Căn lề trái cho nội dung hướng dẫn */
-    margin-top: 20px;
-    max-width: 600px; /* Giới hạn chiều rộng tối đa nếu cần */
-  }
-  
-  .instructions-box h2 {
-      margin-top: 0; /* Bỏ margin trên của tiêu đề */
-      text-align: center; /* Căn giữa lại tiêu đề nếu muốn */
-      margin-bottom: 20px;
-  }
-  
-  .memo-label {
+/* --- Style chính cho container trang Nạp Tiền bao gồm cả nền --- */
+.naptien-page-background { /* Giữ tên class này để dùng trong NapTienPage.jsx */
+
+  /* 1. Ảnh nền cụ thể (Lấy từ App.css cũ) */
+  background-image: url('/ire.jpg');
+
+  /* 2. Các thuộc tính NỀN & KÍCH THƯỚC chung */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #1a1a1a; /* Màu nền dự phòng */
+
+  /* 3. Layout cơ bản chiếm không gian */
+  /* flex-grow: 1; */ /* Bỏ comment nếu App.jsx dùng flex */
+  width: 100%;
+  min-height: calc(100vh - 60px); /* !!! KIỂM TRA LẠI CHIỀU CAO HEADER (60px) !!! */
+  box-sizing: border-box;
+  padding: 20px; /* Padding chung */
+  color: white; /* Màu chữ mặc định */
+
+  /* Căn giữa nội dung theo chiều dọc và ngang nếu cần */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: flex-start; */ /* Đẩy nội dung lên trên */
+}
+
+/* --- Style cho container chứa nội dung nạp tiền chính --- */
+.deposit-content-wrapper {
+  max-width: 650px; /* Giới hạn chiều rộng */
+  margin: 40px auto; /* Căn giữa và tạo khoảng cách trên dưới */
+  padding: 30px;
+  background-color: rgba(30, 35, 40, 0.9); /* Nền tối mờ, độ mờ cao hơn */
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Viền sáng hơn chút */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Bóng đổ rõ hơn */
+  color: #e0e0e0; /* Màu chữ sáng */
+  text-align: center; /* Căn giữa nội dung mặc định */
+}
+
+/* --- Style cho ảnh QR Code --- */
+.qr-code {
+  display: block; /* Để margin auto hoạt động */
+  max-width: 200px; /* Giới hạn kích thước QR */
+  height: auto;
+  margin: 0 auto 25px auto; /* Căn giữa và tạo khoảng cách dưới */
+  background-color: white; /* Nền trắng cho QR code */
+  padding: 10px; /* Khoảng đệm */
+  border-radius: 8px; /* Bo góc */
+  border: 1px solid #ccc;
+}
+
+/* --- Style cho tiêu đề (ví dụ: Nạp tiền qua VietQR) --- */
+.deposit-content-wrapper h2 {
+  color: #ffffff;
+  font-size: 1.8em;
+  margin-top: 0; /* Bỏ margin trên nếu đã có margin cho wrapper */
+  margin-bottom: 25px; /* Khoảng cách dưới */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Style cho các đoạn hướng dẫn --- */
+.instruction-text {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  font-size: 1em;
+  color: #ccc; /* Màu chữ hướng dẫn nhạt hơn */
+  text-align: left; /* Căn trái hướng dẫn */
+}
+
+/* Style riêng cho dòng cảnh báo nội dung chuyển khoản */
+.transfer-note-warning {
+  color: #ffdd57; /* Màu vàng cảnh báo */
+  font-weight: bold;
+  background-color: rgba(255, 221, 87, 0.1); /* Nền vàng nhạt */
+  padding: 12px; /* Tăng padding */
+  border-radius: 5px;
+  border: 1px solid rgba(255, 221, 87, 0.4); /* Viền rõ hơn */
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: center; /* Căn giữa dòng cảnh báo */
+}
+.transfer-note-warning strong { /* Làm nổi bật chữ BẮT BUỘC */
+    color: #ff6b6b; /* Màu đỏ nhạt hơn */
+    font-size: 1.1em; /* To hơn chút */
+}
+
+
+/* --- Style cho khu vực nhập liệu --- */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left; /* Căn trái cho label và input */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
     font-weight: bold;
-    color: red;
-    display: block; /* Hiển thị trên 1 dòng riêng */
-    margin-bottom: 5px;
-  }
-  
-  .memo-text {
-    font-size: 1.2em;
+    color: white;
+}
+
+/* Style input */
+.input-group input[type="text"],
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #2b2b2b; /* Nền tối hơn chút */
+    color: white;
+    font-size: 1em;
+}
+
+/* --- Style cho các nút chọn mệnh giá (Tùy chọn) --- */
+.amount-options {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 15px; /* Khoảng cách ngang dọc */
+}
+
+.amount-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
     font-weight: bold;
-    background-color: #e9ecef;
-    padding: 10px 15px; /* Tăng padding */
-    border-radius: 4px;
-    margin: 10px 0 20px 0; /* Thêm margin dưới */
-    display: inline-block; /* Vừa đủ chữ */
-    word-break: break-all; /* Đảm bảo không bị tràn nếu tên đăng nhập dài */
-  }
-  
-  .instructions-box p {
-      margin-bottom: 10px; /* Khoảng cách giữa các dòng hướng dẫn */
-      line-height: 1.6; /* Tăng khoảng cách dòng */
-  }
-  
-  .instructions-box p:last-child {
-      margin-bottom: 0; /* Bỏ margin cho dòng cuối */
-  }
+    transition: background-color 0.2s ease;
+}
+
+.amount-button:hover {
+    background-color: #0056b3;
+}
+
+/* --- Style cho nút xác nhận (Tùy chọn) --- */
+.confirm-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.confirm-button:hover {
+    background-color: #388e3c;
+}

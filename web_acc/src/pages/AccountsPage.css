@@ -1,0 +1,115 @@
+/* src/pages/AccountsPage.css */
+/* Styles dành riêng cho trang danh sách tài khoản (Mua Acc) */
+
+/* --- Container chính của trang với ảnh nền --- */
+.accounts-page-background {
+    /* 1. Ảnh nền (Lấy từ App.css cũ của bạn) */
+    background-image: url('/mis.jpg');
+  
+    /* 2. Thuộc tính nền & kích thước chung (Lấy từ App.css cũ của bạn) */
+    background-size: cover;
+    background-position: center top; /* Hoặc center center */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #1a1a1a; /* Màu nền dự phòng */
+  
+    /* 3. Layout & Kích thước cơ bản (Lấy từ App.css cũ của bạn) */
+    /* flex-grow: 1; */ /* Bỏ comment nếu layout cha là flex */
+    width: 100%;
+    min-height: calc(100vh - 60px); /* !!! KIỂM TRA LẠI CHIỀU CAO HEADER (60px) !!! */
+    box-sizing: border-box;
+    padding: 20px;
+    color: white; /* Màu chữ mặc định */
+    /* Không cần max-width: none; hoặc margin: 0; ở đây trừ khi có xung đột */
+  }
+  
+  /* Style cho tiêu đề H1 trên trang này */
+  .accounts-page-background h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* --- Container chứa lưới các thẻ tài khoản --- */
+  .accounts-page-background .accounts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* --- Style cho từng thẻ tài khoản --- */
+  .accounts-page-background .account-card {
+    background-color: rgba(40, 40, 40, 0.9);
+    border: 1px solid #666;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+  }
+  
+  .accounts-page-background .account-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Style cho phần mô tả tài khoản */
+  .accounts-page-background .account-description {
+    margin-bottom: 15px;
+    font-size: 0.95em;
+    line-height: 1.5;
+    max-height: 6em; /* Khoảng 4 dòng */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #e0e0e0;
+  }
+  .accounts-page-background .account-description strong {
+      color: white;
+      margin-right: 5px;
+  }
+  
+  /* Style cho giá tiền */
+  .accounts-page-background .account-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffeb3b;
+    margin-bottom: 15px;
+    margin-top: auto;
+  }
+  
+  /* Style cho nút "Xem Chi Tiết" */
+  .accounts-page-background .details-button {
+    display: block;
+    text-decoration: none;
+    background-color: #0088cc;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+    border: none;
+  }
+  
+  .accounts-page-background .details-button:hover {
+    background-color: #006fa6;
+    color: white;
+  }
+  
+  /* Style cho thông báo Loading/Error/Không có tài khoản (nếu muốn) */
+  .accounts-page-background p {
+      text-align: center;
+      font-size: 1.1em;
+      margin-top: 30px;
+  }
+  
+  .accounts-page-background p[style*="color: red"] { /* Target thẻ p báo lỗi */
+      color: #ff4d4d !important; /* Ghi đè màu nếu cần */
+      font-weight: bold;
+  }

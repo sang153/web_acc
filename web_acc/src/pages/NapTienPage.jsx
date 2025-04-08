@@ -12,7 +12,7 @@ function NapTienPage() {
     return <div>Đang tải thông tin người dùng... Vui lòng đăng nhập để nạp tiền.</div>;
   }
 
-  const transactionMemo = `nạp tiền vào tài khoản ${user.TenDangNhap}`;
+  const transactionMemo = `nạp tiền vào tài khoản (tên đăng nhập)`;
 
   return (
     <div className="nap-tien-page-container naptien-page-background">

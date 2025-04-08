@@ -1,0 +1,84 @@
+/* src/pages/AccountDetailPage.css */
+
+/* --- Style cho container chính của trang chi tiết --- */
+.account-detail-page {
+    padding: 30px; /* Tăng padding */
+    max-width: 900px; /* Giới hạn chiều rộng nội dung */
+    margin: 20px auto; /* Căn giữa trang và tạo khoảng cách trên dưới */
+    color: #e0e0e0; /* Màu chữ mặc định sáng hơn trên nền tối */
+    background-color: rgba(30, 30, 30, 0.6); /* Nền hơi tối, hơi mờ (tùy chọn) */
+    border-radius: 8px; /* Bo góc nhẹ (tùy chọn) */
+    /* min-height: calc(100vh - 100px); */ /* Đảm bảo chiều cao nếu cần */
+  }
+  
+  /* Style cho tiêu đề chính H1 */
+  .account-detail-page h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Style cho tiêu đề phụ H2 (Thông tin chi tiết...) */
+  .account-detail-page h2 {
+    color: #00e5ff; /* Màu xanh cyan */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #00e5ff; /* Đường gạch chân */
+    padding-bottom: 5px;
+  }
+  
+  /* Style chung cho các đoạn văn bản */
+  .account-detail-page p {
+    line-height: 1.6; /* Giãn dòng */
+    margin-bottom: 12px;
+    font-size: 1.05em; /* Tăng nhẹ cỡ chữ */
+  }
+  
+  /* Style cho phần text được bôi đậm */
+  .account-detail-page strong {
+    color: white; /* Làm chữ đậm màu trắng */
+    margin-right: 8px;
+  }
+  
+  /* Style cho nút "Mua Ngay" */
+  /* Sử dụng lại style tương tự nút .details-button nếu muốn thống nhất */
+  .account-detail-page button {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #4caf50; /* Màu xanh lá cây */
+    color: white !important;
+    padding: 12px 25px; /* Nút to hơn */
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.2s ease;
+    margin-top: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .account-detail-page button:hover {
+    background-color: #388e3c; /* Màu xanh lá đậm hơn */
+    color: white !important;
+  }
+  
+  /* Style cho thông báo lỗi (tương tự các trang khác) */
+  .account-detail-page .error-message {
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    text-align: center;
+    text-shadow: none;
+  }
+  
+  /* Style cho thông báo loading (nếu dùng thẻ p) */
+  .account-detail-page p:first-child { /* Target thẻ p đầu tiên (thường là loading) */
+      text-align: center;
+      font-style: italic;
+      color: #ccc;
+  }
