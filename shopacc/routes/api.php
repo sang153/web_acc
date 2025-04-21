@@ -24,9 +24,29 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 /*======================================================*/  
-Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/auth/login', [AuthController::class, 'login']);
-
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return response()->json([
+            'user' => $request->user(),
+            'wallet' => $request->user()->wallet
+        ]);
+    });
+});
+Route::get('/test-auth', function (Request $request) {
+    // Bypass auth để test
+    $user = \App\Models\User::first(); 
+    Auth::login($user);
+    
+    return response()->json([
+        'user' => $request->user(),
+    ]);
+});
 
        // Lấy tất cả tài khoản
 Route::post('/taikhoan', [TaikhoanController::class, 'store']);        // Thêm tài khoản mới

@@ -2,48 +2,41 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
-
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'wallet' // Thêm wallet vào fillable
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'wallet' => 'float' // Đảm bảo wallet luôn là float
     ];
+
     protected $attributes = [
-        'name' => '' // Mặc định là chuỗi rỗng nếu không nhập
+        'name' => '',
+        'wallet' => 0 // Giá trị mặc định cho wallet
     ];
     
+    // Thêm phương thức kiểm tra ví đủ tiền
+    public function hasSufficientFunds($amount)
+    {
+        return $this->wallet >= $amount;
+    }
 }
