@@ -7,7 +7,7 @@ import './LoginPage.css'; // Giả sử dùng chung CSS với Login
 
 
 // Thiết lập baseURL cho Axios
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'http://127.0.0.1:8001';
 axios.defaults.withCredentials = true; // Quan trọng: Gửi cookie với request
 
 // Gọi CSRF cookie trước khi đăng ký

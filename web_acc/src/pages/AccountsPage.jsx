@@ -1,14 +1,20 @@
 // src/pages/AccountsPage.jsx
-import React, { useState, useEffect } from 'react'; // Thêm useState, useEffect
-import axios from 'axios';                         // Thêm axios
-import { Link } from 'react-router-dom';             // Thêm Link
-import './AccountsPage.css';                      // Import CSS riêng cho trang này
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import './AccountsPage.css';
 
 function AccountsPage() {
     // --- State ---
-    const [accounts, setAccounts] = useState([]);    // Lưu danh sách tài khoản
-    const [loading, setLoading] = useState(true);    // Trạng thái loading
-    const [error, setError] = useState(null);        // Lưu lỗi
+    const [accounts, setAccounts] = useState([]);
+    const [filteredAccounts, setFilteredAccounts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [priceRange, setPriceRange] = useState([0, 10000000]); // [min, max]
+    const [inputValues, setInputValues] = useState({
+        min: 0,
+        max: 10000000
+    });
 
     // --- Gọi API để lấy danh sách tài khoản ---
     useEffect(() => {
@@ -16,62 +22,86 @@ function AccountsPage() {
             setLoading(true);
             setError(null);
             try {
-                // !!! QUAN TRỌNG: Thay '/api/taikhoan' bằng API endpoint đúng từ Laravel !!!
-                // API này phải trả về mảng các tài khoản hợp lệ (đã duyệt, công khai)
-                const response = await axios.get('/api/taikhoan');
-
-                // Giả sử API trả về mảng trong response.data
-                // Nếu là { data: [...] } thì dùng response.data.data
-                setAccounts(response.data || []); // Đảm bảo accounts luôn là mảng
-
+                const response = await axios.get('http://127.0.0.1:8001/api/taikhoan');
+                setAccounts(response.data || []);
+                setFilteredAccounts(response.data || []);
             } catch (err) {
                 console.error("Lỗi khi fetch tài khoản:", err);
                 setError('Không thể tải danh sách tài khoản. Vui lòng thử lại sau.');
             } finally {
-                setLoading(false); // Kết thúc loading
+                setLoading(false);
             }
         };
 
-        fetchAccounts(); // Chạy hàm fetch khi component mount
-    }, []); // [] đảm bảo chỉ chạy 1 lần
+        fetchAccounts();
+    }, []);
+
+    // --- Lọc tài khoản theo khoảng giá ---
+    useEffect(() => {
+        if (accounts.length > 0) {
+            const filtered = accounts.filter(account => {
+                const price = account.GiaBan || 0;
+                return price >= priceRange[0] && price <= priceRange[1];
+            });
+            setFilteredAccounts(filtered);
+        }
+    }, [priceRange, accounts]);
+
+    // --- Xử lý thay đổi giá trị input ---
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setInputValues(prev => ({
+            ...prev,
+            [name]: parseInt(value) || 0
+        }));
+    };
+
+    // --- Áp dụng bộ lọc ---
+    const applyFilter = () => {
+        setPriceRange([inputValues.min, inputValues.max]);
+    };
+
+    // --- Reset bộ lọc ---
+    const resetFilter = () => {
+        setInputValues({ min: 0, max: 10000000 });
+        setPriceRange([0, 10000000]);
+    };
 
     // --- Hàm render nội dung ---
     const renderContent = () => {
-        // 1. Đang loading
         if (loading) {
             return <p style={{ textAlign: 'center', padding: '50px' }}>Đang tải danh sách tài khoản...</p>;
         }
 
-        // 2. Có lỗi
         if (error) {
-            // Class error-message này có thể định nghĩa trong AccountsPage.css
             return <p className="error-message" style={{ textAlign: 'center', padding: '50px' }}>{error}</p>;
         }
 
-        // 3. Thành công nhưng không có tài khoản
-        if (accounts.length === 0) {
-            return <p style={{ textAlign: 'center' }}>Hiện tại không có tài khoản nào đang bán.</p>;
+        if (filteredAccounts.length === 0) {
+            return <p style={{ textAlign: 'center' }}>Không có tài khoản nào phù hợp với bộ lọc hiện tại.</p>;
         }
 
-        // 4. Thành công và có tài khoản -> Hiển thị danh sách
         return (
-            // Container lưới (class này cần được style trong AccountsPage.css)
             <div className="accounts-list">
-                {accounts.map((account) => (
-                    // Thẻ tài khoản (class này cần được style trong AccountsPage.css)
+                {filteredAccounts.map((account) => (
                     <div className="account-card" key={account.MaTaiKhoan}>
-                        {/* Phần mô tả */}
-                        <div className="account-description">
-                           <strong>Mô tả:</strong> {account.MoTa || 'Không có mô tả'}
+                        <div className="account-title">
+                            <strong>Tài khoản:</strong> {account.TenTaiKhoan || 'Không có tên'}
                         </div>
-                        {/* Phần giá tiền */}
+                        
+                        {account.MaGame && (
+                            <div className="game-info">
+                                <strong>Game ID:</strong> {account.MaGame}
+                            </div>
+                        )}
+                        
                         <div className="account-price">
                             Giá: {(account.GiaBan || 0).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </div>
-                        {/* Nút xem chi tiết */}
+                        
                         <Link
-                            to={`/account/${account.MaTaiKhoan}`} // Đường dẫn đến trang chi tiết
-                            className="details-button"          // Class để style nút
+                            to={`/account/${account.MaTaiKhoan}`}
+                            className="details-button"
                         >
                             Xem Chi Tiết
                         </Link>
@@ -81,13 +111,54 @@ function AccountsPage() {
         );
     };
 
-    // --- Render component chính ---
     return (
-        // Div chính với class background
         <div className="accounts-page accounts-page-background">
             <h1>Danh sách tài khoản đang bán</h1>
-            {/* Render nội dung dựa trên state */}
-            {renderContent()}
+            
+            <div className="accounts-container">
+                {/* Thanh lọc bên trái */}
+                <div className="filter-sidebar">
+                    <h3>Lọc theo giá</h3>
+                    
+                    <div className="price-filter">
+                        <div className="price-input-group">
+                            <label>Giá thấp nhất (VND)</label>
+                            <input
+                                type="number"
+                                name="min"
+                                value={inputValues.min}
+                                onChange={handleInputChange}
+                                min="0"
+                            />
+                        </div>
+                        
+                        <div className="price-input-group">
+                            <label>Giá cao nhất (VND)</label>
+                            <input
+                                type="number"
+                                name="max"
+                                value={inputValues.max}
+                                onChange={handleInputChange}
+                                min="0"
+                            />
+                        </div>
+                        
+                        <div className="filter-buttons">
+                            <button onClick={applyFilter} className="apply-filter-btn">
+                                Áp dụng
+                            </button>
+                            <button onClick={resetFilter} className="reset-filter-btn">
+                                Đặt lại
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                {/* Danh sách sản phẩm bên phải */}
+                <div className="accounts-content">
+                    {renderContent()}
+                </div>
+            </div>
         </div>
     );
 }

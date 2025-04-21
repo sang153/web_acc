@@ -35,7 +35,12 @@ function HomePage() {
             try {
                 // !!! QUAN TRỌNG: Backend cần tạo API endpoint này !!!
                 // Ví dụ: Lấy 4 tài khoản nổi bật
-                const response = await axios.get('/api/taikhoan/featured?limit=4');
+                const response = await axios.get('/api/taikhoan', {
+                    params: {
+                      sort: '-rating', // hoặc trường nào đó để xác định nổi bật
+                      limit: 4
+                    }
+                  });
 
                 // Giả sử API trả về mảng trong response.data
                 // Hoặc response.data.data nếu có phân trang/resource

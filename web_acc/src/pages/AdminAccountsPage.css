@@ -1,0 +1,66 @@
+.admin-accounts-page {
+    padding: 20px;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.account-form {
+    margin-bottom: 30px;
+}
+
+.account-form input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #666;
+    border-radius: 4px;
+    background-color: #2c2c2c;
+    color: white;
+    
+}
+
+.add-button, .update-button, .delete-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.add-button {
+    background-color: #0088cc;
+}
+
+.update-button {
+    background-color: #ff9800;
+}
+
+.delete-button {
+    background-color: #f44336;
+}
+
+.add-button:hover {
+    background-color: #006fa6;
+}
+
+.update-button:hover {
+    background-color: #e68a00;
+}
+
+.delete-button:hover {
+    background-color: #c62828;
+}
+
+h1{
+    text-align:center;
+}
+
+.update-button{
+   margin-left: 10px;
+}
+
+.edit-button{
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: #c6287f;
+}

@@ -1,9 +1,9 @@
 // src/pages/SellAccountPage.jsx
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Cài đặt axios: npm install axios (hoặc dùng fetch)
-import { useNavigate } from 'react-router-dom'; // Để chuyển hướng sau khi gửi
-// import './SellAccountPage.css'; // Import file CSS của bạn
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './SellAccountPage.css';
+
 function SellAccountPage() {
     // --- State cho Form ---
     const [gameId, setGameId] = useState(1); // Mặc định là 1 (Liên Minh Huyền Thoại)
@@ -17,22 +17,25 @@ function SellAccountPage() {
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
 
-    const navigate = useNavigate(); // Hook để chuyển hướng
+    const navigate = useNavigate();
 
-    // --- TODO: Kiểm tra đăng nhập ---
-    // Logic kiểm tra người dùng đã đăng nhập hay chưa sẽ ở đây
-    // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
-    // Ví dụ:
-    // const { isLoggedIn } = useAuth(); // Giả sử bạn có một custom hook useAuth
-    // useEffect(() => {
-    //   if (!isLoggedIn) {
-    //     navigate('/login');
-    //   }
-    // }, [isLoggedIn, navigate]);
+    // --- State và hàm cho bộ tạm chờ duyệt ---
+    const [pendingAccounts, setPendingAccounts] = useState(() => {
+        const saved = localStorage.getItem('pendingAccounts');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // Hàm lưu account vào bộ tạm
+    const saveToPending = (accountData) => {
+        const newPendingAccounts = [...pendingAccounts, accountData];
+        setPendingAccounts(newPendingAccounts);
+        localStorage.setItem('pendingAccounts', JSON.stringify(newPendingAccounts));
+        return newPendingAccounts;
+    };
 
     // --- Hàm xử lý khi gửi Form ---
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Ngăn trình duyệt gửi form theo cách mặc định
+        event.preventDefault();
         setLoading(true);
         setError(null);
         setSuccessMessage('');
@@ -45,45 +48,40 @@ function SellAccountPage() {
         }
 
         const accountData = {
-            MaGame: gameId, // Luôn là 1 trong trường hợp này
+            MaGame: gameId,
             TenTaiKhoan: tenTaiKhoan,
             MatKhauTaiKhoan: matKhauTaiKhoan,
             MoTa: moTa,
             GiaBan: parseFloat(giaBan),
-            // MaNguoiDungBan sẽ được Laravel tự động lấy từ user đang đăng nhập
-            // TrangThai sẽ được Laravel đặt là "chờ duyệt"
+            TrangThai: "Chờ duyệt",
+            NgayTao: new Date().toISOString()
         };
 
         try {
-            // !!! Đảm bảo bạn của bạn tạo API endpoint này trên Laravel !!!
-            // Endpoint này cần được bảo vệ, chỉ user đăng nhập mới gọi được
-            const response = await axios.post('/api/taikhoan/submit-for-approval', accountData, {
-                 // Gửi kèm token xác thực nếu cần (ví dụ: Bearer token)
-                 // headers: {
-                 //   Authorization: `Bearer ${yourAuthToken}`
-                 // }
-            });
-
+            // Lưu vào bộ tạm thay vì gửi lên server
+            saveToPending(accountData);
+            
             setLoading(false);
-            setSuccessMessage('Đăng bán tài khoản thành công! Chờ quản trị viên duyệt.');
+            setSuccessMessage('Đăng bán tài khoản thành công! Tài khoản đang chờ duyệt.');
+            
             // Xóa form sau khi thành công
             setTenTaiKhoan('');
             setMatKhauTaiKhoan('');
             setMoTa('');
             setGiaBan('');
-            // Có thể chuyển hướng người dùng sau vài giây
-            // setTimeout(() => navigate('/my-accounts'), 3000); // Ví dụ chuyển đến trang quản lý acc của user
+            
+            // Chuyển hướng đến trang đợi duyệt sau 2 giây
+            setTimeout(() => navigate('/sell-account'), 2000);
 
         } catch (err) {
             setLoading(false);
-            setError(err.response?.data?.message || 'Đã xảy ra lỗi khi đăng bán. Vui lòng thử lại.');
-            console.error("Lỗi đăng bán:", err);
+            setError('Đã xảy ra lỗi khi lưu tài khoản. Vui lòng thử lại.');
+            console.error("Lỗi lưu tài khoản:", err);
         }
     };
 
     // --- Render JSX ---
     return (
-        // Thêm class cho background nếu cần, ví dụ: className="sell-account-page sell-account-page-background"
         <div className="sell-account-page sell-account-page-background">
             <h1>Đăng bán tài khoản game</h1>
 
@@ -91,13 +89,7 @@ function SellAccountPage() {
                 {/* 1. Chọn Game (Hiển thị tĩnh vì chỉ có 1 game) */}
                 <div className="form-group">
                     <label htmlFor="game">Game:</label>
-                    {/* Bạn có thể làm ẩn input này nếu không muốn user thấy */}
                     <input type="text" id="game" value="Liên Minh Huyền Thoại" readOnly disabled />
-                    {/* Hoặc nếu muốn dùng select dù chỉ có 1 option:
-                    <select id="game" value={gameId} onChange={(e) => setGameId(Number(e.target.value))} disabled>
-                         <option value={1}>Liên Minh Huyền Thoại</option>
-                    </select>
-                    */}
                 </div>
 
                 {/* 2. Tên Tài Khoản */}
@@ -125,9 +117,9 @@ function SellAccountPage() {
                         required
                         aria-describedby="matKhauHelp"
                     />
-                     <small id="matKhauHelp" style={{ color: 'red', display: 'block' }}>
+                    <small id="matKhauHelp" style={{ color: 'red', display: 'block' }}>
                         CẢNH BÁO: Bạn đang nhập mật khẩu tài khoản game. Hãy chắc chắn bạn hiểu rõ rủi ro. Thông tin này sẽ được gửi cho quản trị viên để duyệt.
-                     </small>
+                    </small>
                 </div>
                     
                 {/* 4. Mô Tả */}
@@ -152,8 +144,8 @@ function SellAccountPage() {
                         value={giaBan}
                         onChange={(e) => setGiaBan(e.target.value)}
                         required
-                        min="0" 
-                        placeholder="VD:50.000 VND"// Hoặc một giá trị tối thiểu hợp lý
+                        min="0"
+                        placeholder="VD: 50.000 VND"
                     />
                 </div>
 

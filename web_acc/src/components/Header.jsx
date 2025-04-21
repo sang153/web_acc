@@ -3,12 +3,47 @@ import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css'; // Đảm bảo bạn có file CSS này hoặc style theo cách khác
+import axios from 'axios';
+
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isLoggedIn, user, logout } = useContext(AuthContext);
   const isAdmin = user?.VaiTro === 1;
   const navigate = useNavigate();
+  const [wallet, setWallet] = useState(0);
+  const [walletLoading, setWalletLoading] = useState(false);
+
+  // Hàm lấy số dư từ API
+  const fetchWallet = async () => {
+    if (!isLoggedIn) return;
+    
+    setWalletLoading(true);
+    try {
+      const response = await axios.get('http://127.0.0.1:8001/api/test-auth', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        withCredentials: true // Thêm dòng này
+      });
+      setWallet(response.data.wallet || 0);
+    } catch (error) {
+      console.error('Lỗi khi lấy thông tin ví:', error);
+      if (error.response?.status === 401) {
+        logout();
+      }
+    } finally {
+      setWalletLoading(false);
+    }
+  };
+
+  // Gọi API khi component mount hoặc khi trạng thái đăng nhập thay đổi
+  useEffect(() => {
+    if (isLoggedIn) {
+      const interval = setInterval(fetchWallet, 30000); // Làm mới mỗi 30s
+      return () => clearInterval(interval);
+    }
+  }, [isLoggedIn]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -90,7 +125,10 @@ function Header() {
                 {/* Có thể thêm link profile ở đây nếu muốn */}
                 {/* <li><Link to="/profile" onClick={handleMobileLinkClick}>Tài khoản ({user?.HoTen})</Link></li> */}
                 <li className="mobile-only-auth"><a href="#!" onClick={handleLogout}>Đăng xuất</a></li>
+                
+              
               </>
+
             ) : (
               <>
                 <li className="mobile-only-auth"><Link to="/login" onClick={handleMobileLinkClick}>Đăng nhập</Link></li>
@@ -112,6 +150,20 @@ function Header() {
               {/* <span style={{ marginRight: '15px', color: '#ddd' }}>Chào, {user?.HoTen}!</span> */}
 
               <button onClick={handleLogout} className="logout-button">Đăng xuất</button>
+
+              {/* Hiển thị ví tiền trên desktop */}
+              <div className="wallet-display">
+                {walletLoading ? (
+                  <span>...</span>
+                ) : (
+                  <>
+                    <span className="wallet-label">Ví:</span>
+                    <span className="wallet-amount">
+                      {wallet.toLocaleString('vi-VN')} VND
+                    </span>
+                  </>
+                )}
+              </div>
             </>
           ) : (
             <>

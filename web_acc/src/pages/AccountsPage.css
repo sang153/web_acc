@@ -113,3 +113,86 @@
       color: #ff4d4d !important; /* Ghi đè màu nếu cần */
       font-weight: bold;
   }
+
+  .accounts-container{
+    display: flex;
+    gap: 40px;
+  }
+
+  .accounts-content{
+    width: 100%;
+  }
+/* --- Container cho thanh lọc --- */
+.filter-sidebar {
+  margin-top: 20px;
+  background-color: rgba(40, 40, 40, 0.9); /* Màu nền trầm tương tự như thẻ tài khoản */
+  border: 1px solid #666; /* Đường viền tương tự */
+  border-radius: 8px; /* Bo góc */
+  padding: 20px; /* Khoảng cách bên trong */
+  margin-bottom: 25px; /* Khoảng cách dưới cùng */
+}
+
+/* Style cho tiêu đề của thanh lọc */
+.filter-sidebar h3 {
+  color: white; /* Màu chữ trắng */
+  margin-bottom: 15px; /* Khoảng cách dưới tiêu đề */
+}
+
+/* --- Nhóm input giá --- */
+.price-filter {
+  display: flex; /* Sử dụng flexbox cho layout */
+  flex-direction: column; /* Sắp xếp theo chiều dọc */
+}
+
+/* --- Nhóm input cho giá --- */
+.price-input-group {
+  margin-bottom: 15px; /* Khoảng cách giữa các nhóm input */
+}
+
+/* Style cho nhãn của input */
+.price-input-group label {
+  color: #e0e0e0; /* Màu chữ nhạt */
+  margin-bottom: 5px; /* Khoảng cách dưới nhãn */
+}
+
+/* Style cho input giá */
+.price-input-group input {
+  width: 100%; /* Chiều rộng đầy đủ */
+  padding: 10px; /* Khoảng cách bên trong */
+  border: 1px solid #666; /* Đường viền tối */
+  border-radius: 4px; /* Bo góc */
+  background-color: #2c2c2c; /* Màu nền input trầm */
+  color: white; /* Màu chữ trắng */
+}
+
+/* Style cho các nút trong thanh lọc */
+.filter-buttons {
+  display: flex; /* Sử dụng flexbox cho nút */
+  justify-content: space-between; /* Căn giữa các nút */
+}
+
+.apply-filter-btn, .reset-filter-btn {
+  padding: 10px 15px; /* Padding cho nút */
+  border: none; /* Không có đường viền */
+  border-radius: 4px; /* Bo góc */
+  cursor: pointer; /* Con trỏ dạng tay khi hover */
+  transition: background-color 0.2s ease; /* Hiệu ứng chuyển màu */
+}
+
+.apply-filter-btn {
+  background-color: #0088cc; /* Màu nền xanh */
+  color: white; /* Màu chữ trắng */
+}
+
+.reset-filter-btn {
+  background-color: #6c757d; /* Màu nền xám */
+  color: white; /* Màu chữ trắng */
+}
+
+.apply-filter-btn:hover {
+  background-color: #006fa6; /* Màu xanh đậm khi hover */
+}
+
+.reset-filter-btn:hover {
+  background-color: #5a6268; /* Màu xám đậm khi hover */
+}

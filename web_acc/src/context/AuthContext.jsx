@@ -1,102 +1,163 @@
-// src/context/AuthContext.jsx
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
 
-// 1. Tạo Context Object
-// Giá trị mặc định ban đầu (sẽ được ghi đè bởi Provider)
+// Tạo context với giá trị mặc định
 const AuthContext = createContext({
   isLoggedIn: false,
+  isAdmin: false,
   user: null,
   token: null,
+  isLoading: true,
   login: () => {},
+  adminLogin: () => {},
   logout: () => {},
+  checkAdminRole: () => false,
 });
 
-// Hook tùy chỉnh để sử dụng AuthContext dễ dàng hơn (tùy chọn)
+// Hook tùy chỉnh để sử dụng AuthContext
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
-// 2. Tạo Provider Component
 export const AuthProvider = ({ children }) => {
-  // State để lưu trạng thái đăng nhập
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // State để lưu thông tin người dùng (bao gồm VaiTro)
-  const [user, setUser] = useState(null);
-  // State để lưu token (nếu backend dùng token như JWT)
-  const [token, setToken] = useState(null);
-  // State để kiểm tra xem đã load xong trạng thái từ localStorage chưa
-  const [isLoading, setIsLoading] = useState(true);
+  const [authState, setAuthState] = useState({
+    isLoggedIn: false,
+    isAdmin: false,
+    user: null,
+    token: null,
+    isLoading: true,
+  });
 
-  // useEffect để kiểm tra localStorage khi component được mount lần đầu
+  // Hàm kiểm tra vai trò admin
+  const checkAdminRole = useCallback((userData) => {
+    return userData?.VaiTro === 1; // Chỉ kiểm tra VaiTro
+  }, []);
+
+  // Khởi tạo trạng thái auth từ localStorage
   useEffect(() => {
-    try {
-      const storedToken = localStorage.getItem('authToken');
-      const storedUser = localStorage.getItem('authUser');
-
-      if (storedToken && storedUser) {
-        setToken(storedToken);
-        setUser(JSON.parse(storedUser)); // Parse chuỗi JSON thành object
-        setIsLoggedIn(true);
+    const initializeAuth = () => {
+      try {
+        const storedToken = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('authUser');
+        
+        if (storedToken && storedUser) {
+          const userData = JSON.parse(storedUser);
+          const isAdmin = checkAdminRole(userData);
+          
+          setAuthState({
+            isLoggedIn: true,
+            isAdmin,
+            user: userData,
+            token: storedToken,
+            isLoading: false,
+          });
+          return;
+        }
+      } catch (error) {
+        console.error("Lỗi khi khởi tạo auth:", error);
       }
-    } catch (error) {
-      console.error("Lỗi khi đọc trạng thái đăng nhập từ localStorage:", error);
-      // Đảm bảo trạng thái là đã đăng xuất nếu có lỗi
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('authUser');
-      setIsLoggedIn(false);
-      setUser(null);
-      setToken(null);
-    } finally {
-      setIsLoading(false); // Đánh dấu đã load xong
-    }
-  }, []); // Mảng rỗng đảm bảo chỉ chạy 1 lần khi mount
+      
+      // Nếu không có thông tin đăng nhập hoặc có lỗi
+      setAuthState(prev => ({
+        ...prev,
+        isLoading: false,
+      }));
+    };
 
-  // Hàm xử lý khi đăng nhập thành công
-  const login = (userData, authToken) => {
+    initializeAuth();
+  }, [checkAdminRole]);
+
+  // Hàm clear thông tin đăng nhập
+  const clearAuth = useCallback(() => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('authUser');
+    setAuthState({
+      isLoggedIn: false,
+      isAdmin: false,
+      user: null,
+      token: null,
+      isLoading: false,
+    });
+  }, []);
+
+  // Hàm đăng nhập thông thường
+  const login = useCallback((userData, authToken) => {
     try {
       localStorage.setItem('authToken', authToken);
-      // Lưu user data dưới dạng chuỗi JSON
       localStorage.setItem('authUser', JSON.stringify(userData));
-      setToken(authToken);
-      setUser(userData);
-      setIsLoggedIn(true);
+      
+      setAuthState({
+        isLoggedIn: true,
+        isAdmin: checkAdminRole(userData),
+        user: userData,
+        token: authToken,
+        isLoading: false,
+      });
     } catch (error) {
-       console.error("Lỗi khi lưu trạng thái đăng nhập vào localStorage:", error);
+      console.error("Lỗi khi lưu trạng thái đăng nhập:", error);
+      throw error;
     }
-  };
+  }, [checkAdminRole]);
 
-  // Hàm xử lý khi đăng xuất
-  const logout = () => {
+  // Hàm đăng nhập admin
+  const adminLogin = useCallback((adminData, authToken) => {
     try {
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('authUser');
-      setToken(null);
-      setUser(null);
-      setIsLoggedIn(false);
-      // Có thể gọi thêm API logout của backend ở đây nếu cần
-      // Ví dụ: axios.post('/api/logout');
+      if (!checkAdminRole(adminData)) {
+        throw new Error('Người dùng không có quyền admin');
+      }
+      
+      localStorage.setItem('authToken', authToken);
+      localStorage.setItem('authUser', JSON.stringify(adminData));
+      
+      setAuthState({
+        isLoggedIn: true,
+        isAdmin: true,
+        user: adminData,
+        token: authToken,
+        isLoading: false,
+      });
     } catch (error) {
-       console.error("Lỗi khi xóa trạng thái đăng nhập khỏi localStorage:", error);
+      console.error("Lỗi khi lưu trạng thái admin:", error);
+      throw error;
     }
-  };
+  }, [checkAdminRole]);
 
-  // Tạo giá trị context sẽ được cung cấp cho các component con
+  // Hàm đăng xuất
+  const logout = useCallback(async () => {
+    try {
+      // Gọi API logout nếu cần
+      // await api.post('/auth/logout');
+    } finally {
+      clearAuth();
+    }
+  }, [clearAuth]);
+
+  // Giá trị context sẽ cung cấp
   const contextValue = {
-    isLoggedIn,
-    user,
-    token,
+    ...authState,
     login,
+    adminLogin,
     logout,
-    // Không truyền isLoading ra ngoài nếu component khác không cần biết
+    checkAdminRole,
   };
 
-  // Chỉ render children sau khi đã kiểm tra xong localStorage
-  // để tránh hiện giao diện sai lúc đầu
-  if (isLoading) {
-    return <div>Loading...</div>; // Hoặc một spinner/component loading khác
+  // Hiển thị loading khi đang khởi tạo
+  if (authState.isLoading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+      }}>
+        <div>Đang tải thông tin đăng nhập...</div>
+      </div>
+    );
   }
 
-  // 3. Cung cấp Context Value cho các component con
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
@@ -104,5 +165,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Export AuthContext để các component con có thể dùng useContext(AuthContext)
 export default AuthContext;
