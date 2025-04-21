@@ -45,4 +45,5 @@ class User extends Authenticatable
     protected $attributes = [
         'name' => '' // Mặc định là chuỗi rỗng nếu không nhập
     ];
+    
 }
