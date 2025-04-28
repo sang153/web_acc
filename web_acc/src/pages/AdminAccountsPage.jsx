@@ -157,7 +157,7 @@ function AdminAccountsPage() {
                         {accounts.map((account) => (
                             <tr key={account.MaTaiKhoan} className={account.TrangThai === 1 ? 'sold' : ''}>
                                 <td>{account.MaTaiKhoan}</td>
-                                <td>{account.MaNguoiDungBan}</td>
+                                <td>{account.MaNguoiBan}</td>
                                 <td>{account.TenTaiKhoan || 'Không có'}</td>
                                 <td>{account.MatKhauTaiKhoan || 'Không có'}</td>
                                 <td>{account.MoTa || 'Không có'}</td>
