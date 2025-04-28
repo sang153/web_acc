@@ -1,4 +1,3 @@
-// src/pages/PendingApprovalPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -16,16 +15,10 @@ function PendingApprovalPage() {
 
     const fetchPendingAccounts = async () => {
         try {
-            // Lấy từ localStorage (tạm thời)
             const saved = localStorage.getItem('pendingAccounts');
             if (saved) {
                 setPendingAccounts(JSON.parse(saved));
             }
-            
-            // Nếu có kết nối backend, bạn có thể gọi API ở đây
-            // const response = await axios.get('/api/accounts/pending');
-            // setPendingAccounts(response.data);
-            
             setLoading(false);
         } catch (error) {
             console.error("Lỗi khi tải tài khoản chờ duyệt:", error);
@@ -47,7 +40,7 @@ function PendingApprovalPage() {
             // 2. Chuẩn bị dữ liệu để gửi lên server
             const accountData = {
                 TenTaiKhoan: accountToApprove.TenTaiKhoan,
-                MatKhauTaiKhoan: accountToApprove.MatKhauTaiKhoan || '', // Thêm mật khẩu nếu có
+                MatKhauTaiKhoan: accountToApprove.MatKhauTaiKhoan || '', 
                 MoTa: accountToApprove.MoTa || '',
                 GiaBan: accountToApprove.GiaBan || 0,
                 TrangThai: 1, // 1 = Đã duyệt

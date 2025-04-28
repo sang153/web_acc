@@ -116,7 +116,6 @@ function RutTienPage() {
 
         saveWithdrawalRequest(withdrawalData);
         
-        // Cập nhật ví từ response
         updateWallet(response.data.new_balance);
         
         setShowSuccessModal(true);

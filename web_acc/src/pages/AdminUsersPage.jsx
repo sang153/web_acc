@@ -129,7 +129,7 @@ function AdminUsersPage() {
                         placeholder="Email"
                         value={formValues.email}
                         onChange={handleInputChange}
-                        style={{ width: '80%' }} // Thay đổi chiều rộng
+                        style={{ width: '80%' }}
                         disabled 
                     />
                     <input
@@ -138,7 +138,7 @@ function AdminUsersPage() {
                         placeholder="Ví tiền (VND)"
                         value={formValues.wallet}
                         onChange={handleInputChange}
-                        style={{ width: '80%' }} // Thay đổi chiều rộng
+                        style={{ width: '80%' }} 
                     />
                     <div style={{ display: 'flex' }}>
                         <button onClick={updateAccount} className="update-button">Cập nhật tài khoản</button>

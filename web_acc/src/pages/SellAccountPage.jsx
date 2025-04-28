@@ -1,4 +1,3 @@
-// src/pages/SellAccountPage.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +5,7 @@ import './SellAccountPage.css';
 
 function SellAccountPage() {
     // --- State cho Form ---
-    const [gameId, setGameId] = useState(1); // Mặc định là 1 (Liên Minh Huyền Thoại)
+    const [gameId, setGameId] = useState(1); 
     const [tenTaiKhoan, setTenTaiKhoan] = useState('');
     const [matKhauTaiKhoan, setMatKhauTaiKhoan] = useState('');
     const [moTa, setMoTa] = useState('');
@@ -80,19 +79,15 @@ function SellAccountPage() {
         }
     };
 
-    // --- Render JSX ---
     return (
         <div className="sell-account-page sell-account-page-background">
             <h1>Đăng bán tài khoản game</h1>
 
             <form onSubmit={handleSubmit}>
-                {/* 1. Chọn Game (Hiển thị tĩnh vì chỉ có 1 game) */}
                 <div className="form-group">
                     <label htmlFor="game">Game:</label>
                     <input type="text" id="game" value="Liên Minh Huyền Thoại" readOnly disabled />
                 </div>
-
-                {/* 2. Tên Tài Khoản */}
                 <div className="form-group">
                     <label htmlFor="tenTaiKhoan">Tên Tài Khoản (trong game):</label>
                     <input
@@ -106,7 +101,6 @@ function SellAccountPage() {
                     <small id="tenTaiKhoanHelp">Tên đăng nhập của tài khoản game bạn muốn bán.</small>
                 </div>
 
-                {/* 3. Mật Khẩu Tài Khoản */}
                 <div className="form-group">
                     <label htmlFor="matKhauTaiKhoan">Mật Khẩu Tài Khoản:</label>
                     <input
@@ -122,7 +116,6 @@ function SellAccountPage() {
                     </small>
                 </div>
                     
-                {/* 4. Mô Tả */}
                 <div className="form-group">
                     <label htmlFor="moTa">Mô Tả Chi Tiết:</label>
                     <textarea
@@ -135,7 +128,6 @@ function SellAccountPage() {
                     />
                 </div>
 
-                {/* 5. Giá Bán */}
                 <div className="form-group">
                     <label htmlFor="giaBan">Giá Bán (VNĐ):</label>
                     <input
@@ -149,11 +141,11 @@ function SellAccountPage() {
                     />
                 </div>
 
-                {/* Thông báo lỗi/thành công */}
+                
                 {error && <p className="error-message" style={{ color: 'red' }}>{error}</p>}
                 {successMessage && <p className="success-message" style={{ color: 'green' }}>{successMessage}</p>}
 
-                {/* 6. Nút Gửi */}
+            
                 <button type="submit" disabled={loading}>
                     {loading ? 'Đang xử lý...' : 'Đăng Bán (Chờ Duyệt)'}
                 </button>

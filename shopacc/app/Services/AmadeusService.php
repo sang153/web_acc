@@ -42,8 +42,6 @@ class AmadeusService
         if (!isset($apiData['data']) || empty($apiData['data'])) {
             return ['error' => 'Không có chuyến bay nào được tìm thấy.'];
         }
-
-        // 🔥 Chỉ trả về "data" thay vì toàn bộ response
         return $apiData['data'];
     } catch (\Exception $e) {
         return ['error' => 'Không thể lấy dữ liệu chuyến bay: ' . $e->getMessage()];

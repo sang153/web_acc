@@ -6,7 +6,7 @@ import './LoginPage.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Thiết lập Axios
+
 axios.defaults.baseURL = 'http://127.0.0.1:8000';
 axios.defaults.withCredentials = true;
 
@@ -78,7 +78,6 @@ function RegisterPage() {
     } catch (err) {
       console.error('Lỗi đăng ký:', err.response?.data);
       if (err.response?.data?.errors) {
-        // Hiển thị lỗi từ Laravel validation
         const errorMessages = Object.values(err.response.data.errors).flat();
         setError(errorMessages.join(', '));
       } else {

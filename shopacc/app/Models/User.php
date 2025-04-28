@@ -16,7 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'wallet' // Thêm wallet vào fillable
+        'wallet'
     ];
 
     protected $hidden = [
@@ -26,12 +26,12 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'wallet' => 'float' // Đảm bảo wallet luôn là float
+        'wallet' => 'float' 
     ];
 
     protected $attributes = [
         'name' => '',
-        'wallet' => 0 // Giá trị mặc định cho wallet
+        'wallet' => 0 
     ];
     
     // Thêm phương thức kiểm tra ví đủ tiền

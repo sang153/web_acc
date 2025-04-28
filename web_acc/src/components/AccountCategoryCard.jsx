@@ -1,21 +1,16 @@
-// src/components/AccountCategoryCard.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Dùng Link nếu nút dẫn đến trang khác trong app
+import { Link } from 'react-router-dom'; 
 import styles from './AccountCategoryCard.module.css';
 
-// Component nhận props là dữ liệu của một card
 function AccountCategoryCard({ cardData }) {
-  // Destructuring props để dễ sử dụng
   const {
     imageUrl,
-    topText = "SHOPACCRIOT.COM", // Giá trị mặc định nếu không có
+    topText = "SHOPACCRIOT.COM", 
     mainTitle,
     subTitle,
     accountCount,
-    linkUrl = "/accounts" // Link mặc định nếu không có
+    linkUrl = "/accounts"
   } = cardData;
-
-  // Tạo style inline cho background image
   const cardStyle = {
     backgroundImage: `url(${imageUrl})`
   };

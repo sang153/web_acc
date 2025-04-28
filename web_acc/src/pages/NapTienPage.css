@@ -1,64 +1,51 @@
-/* src/pages/NapTienPage.css */
+.naptien-page-background { 
 
-/* --- Style chính cho container trang Nạp Tiền bao gồm cả nền --- */
-.naptien-page-background { /* Giữ tên class này để dùng trong NapTienPage.jsx */
-
-  /* 1. Ảnh nền cụ thể (Lấy từ App.css cũ) */
   background-image: url('/ire.jpg');
 
-  /* 2. Các thuộc tính NỀN & KÍCH THƯỚC chung */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: #1a1a1a; /* Màu nền dự phòng */
+  background-color: #1a1a1a;
 
-  /* 3. Layout cơ bản chiếm không gian */
-  /* flex-grow: 1; */ /* Bỏ comment nếu App.jsx dùng flex */
   width: 100%;
-  min-height: calc(100vh - 60px); /* !!! KIỂM TRA LẠI CHIỀU CAO HEADER (60px) !!! */
+  min-height: calc(100vh - 60px); 
   box-sizing: border-box;
-  padding: 20px; /* Padding chung */
-  color: white; /* Màu chữ mặc định */
-
-  /* Căn giữa nội dung theo chiều dọc và ngang nếu cần */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: flex-start; */ /* Đẩy nội dung lên trên */
+  padding: 20px;
+  color: white; 
 }
 
 /* --- Style cho container chứa nội dung nạp tiền chính --- */
 .deposit-content-wrapper {
-  max-width: 650px; /* Giới hạn chiều rộng */
-  margin: 40px auto; /* Căn giữa và tạo khoảng cách trên dưới */
+  max-width: 650px; 
+  margin: 40px auto;
   padding: 30px;
-  background-color: rgba(30, 35, 40, 0.9); /* Nền tối mờ, độ mờ cao hơn */
+  background-color: rgba(30, 35, 40, 0.9);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Viền sáng hơn chút */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* Bóng đổ rõ hơn */
-  color: #e0e0e0; /* Màu chữ sáng */
-  text-align: center; /* Căn giữa nội dung mặc định */
+  border: 1px solid rgba(255, 255, 255, 0.15); 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  color: #e0e0e0; 
+  text-align: center; 
 }
 
 /* --- Style cho ảnh QR Code --- */
 .qr-code {
-  display: block; /* Để margin auto hoạt động */
-  max-width: 200px; /* Giới hạn kích thước QR */
+  display: block; 
+  max-width: 200px; 
   height: auto;
-  margin: 0 auto 25px auto; /* Căn giữa và tạo khoảng cách dưới */
-  background-color: white; /* Nền trắng cho QR code */
-  padding: 10px; /* Khoảng đệm */
-  border-radius: 8px; /* Bo góc */
+  margin: 0 auto 25px auto; 
+  background-color: white; 
+  padding: 10px; 
+  border-radius: 8px; 
   border: 1px solid #ccc;
 }
 
-/* --- Style cho tiêu đề (ví dụ: Nạp tiền qua VietQR) --- */
+/* --- Style cho tiêu đề  --- */
 .deposit-content-wrapper h2 {
   color: #ffffff;
   font-size: 1.8em;
-  margin-top: 0; /* Bỏ margin trên nếu đã có margin cho wrapper */
-  margin-bottom: 25px; /* Khoảng cách dưới */
+  margin-top: 0; 
+  margin-bottom: 25px; 
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -67,32 +54,31 @@
   margin-bottom: 15px;
   line-height: 1.6;
   font-size: 1em;
-  color: #ccc; /* Màu chữ hướng dẫn nhạt hơn */
-  text-align: left; /* Căn trái hướng dẫn */
+  color: #ccc; 
+  text-align: left; 
 }
 
 /* Style riêng cho dòng cảnh báo nội dung chuyển khoản */
 .transfer-note-warning {
-  color: #ffdd57; /* Màu vàng cảnh báo */
+  color: #ffdd57; 
   font-weight: bold;
-  background-color: rgba(255, 221, 87, 0.1); /* Nền vàng nhạt */
-  padding: 12px; /* Tăng padding */
+  background-color: rgba(255, 221, 87, 0.1); 
+  padding: 12px; 
   border-radius: 5px;
-  border: 1px solid rgba(255, 221, 87, 0.4); /* Viền rõ hơn */
+  border: 1px solid rgba(255, 221, 87, 0.4); 
   margin-top: 20px;
   margin-bottom: 25px;
-  text-align: center; /* Căn giữa dòng cảnh báo */
+  text-align: center; 
 }
-.transfer-note-warning strong { /* Làm nổi bật chữ BẮT BUỘC */
-    color: #ff6b6b; /* Màu đỏ nhạt hơn */
-    font-size: 1.1em; /* To hơn chút */
+.transfer-note-warning strong { 
+    color: #ff6b6b; 
+    font-size: 1.1em; 
 }
 
 
-/* --- Style cho khu vực nhập liệu --- */
 .input-group {
     margin-bottom: 20px;
-    text-align: left; /* Căn trái cho label và input */
+    text-align: left;
 }
 
 .input-group label {
@@ -102,7 +88,7 @@
     color: white;
 }
 
-/* Style input */
+
 .input-group input[type="text"],
 .input-group input[type="number"] {
     width: 100%;
@@ -110,19 +96,17 @@
     border: 1px solid #555;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #2b2b2b; /* Nền tối hơn chút */
+    background-color: #2b2b2b; 
     color: white;
     font-size: 1em;
 }
-
-/* --- Style cho các nút chọn mệnh giá (Tùy chọn) --- */
 .amount-options {
     margin-top: 25px;
     margin-bottom: 25px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px 15px; /* Khoảng cách ngang dọc */
+    gap: 10px 15px; 
 }
 
 .amount-button {
@@ -139,8 +123,6 @@
 .amount-button:hover {
     background-color: #0056b3;
 }
-
-/* --- Style cho nút xác nhận (Tùy chọn) --- */
 .confirm-button {
     background-color: #4caf50;
     color: white;

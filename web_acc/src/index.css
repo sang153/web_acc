@@ -1,4 +1,3 @@
-/* src/index.css */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -6,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; /* Fallback/canvas color for dark mode */
+  background-color: #242424; 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,20 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* === CSS RESET === */
 html,
 body {
-  margin: 0;  /* <<< Đảm bảo xóa margin */
-  padding: 0; /* <<< Thêm để xóa padding */
-  height: 100%; /* Giúp định vị và tính toán chiều cao % */
-  box-sizing: border-box; /* Áp dụng box-sizing cho html, body */
+  margin: 0; 
+  padding: 0;
+  height: 100%; 
+  box-sizing: border-box; 
 }
 
 *, *::before, *::after {
-  box-sizing: inherit; /* Kế thừa box-sizing từ cha */
+  box-sizing: inherit; 
 }
-/* =============== */
-
 
 a {
   font-weight: 500;
@@ -39,14 +35,8 @@ a:hover {
 }
 
 body {
-  /* margin: 0; <<< Đã chuyển lên rule html, body ở trên */
-  /* padding: 0; <<< Đã thêm vào rule html, body ở trên */
-  /* display: flex; */
-  /* place-items: center; */
   min-width: 320px;
-  min-height: 100vh; /* Vẫn giữ để đảm bảo body ít nhất cao bằng màn hình */
-  /* background-color: #f0f0f0; */ /* Có thể giữ lại màu nền này làm fallback cuối cùng */
-                                 /* hoặc xóa đi nếu không muốn có màu nền mặc định nào */
+  min-height: 100vh; 
 }
 
 h1 {
@@ -61,10 +51,10 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a; /* Button background in dark mode */
+  background-color: #1a1a1a; 
   cursor: pointer;
   transition: border-color 0.25s;
-  color: inherit; /* <<< Thêm để nút kế thừa màu chữ từ :root */
+  color: inherit; 
 }
 button:hover {
   border-color: #646cff;
@@ -77,15 +67,13 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff; /* Fallback/canvas color for light mode */
+    background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9; /* Button background in light mode */
+    background-color: #f0f0f0;
+    color: #212529;
   }
-  /* body { */ /* Không cần định nghĩa lại body background ở đây nếu không muốn */
-    /* background-color: #ffffff; */
-  /* } */
 }

@@ -13,7 +13,6 @@ function LoginAdminPage() {
   const { isLoggedIn, isAdmin, adminLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Redirect nếu đã đăng nhập
   useEffect(() => {
     if (isLoggedIn && isAdmin) {
       navigate('/admin/dashboard');

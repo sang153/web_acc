@@ -1,26 +1,20 @@
-/* src/App.css */
 
-/* Styles cho container ứng dụng chính */
 .App {
   display: flex;
-  flex-direction: column; /* Bố cục dọc: Header trên, main content dưới */
-  min-height: 100vh; /* Chiều cao tối thiểu bằng màn hình */
-  background-color: #121212;  /* Xóa hoặc comment màu nền chung nếu không cần */
+  flex-direction: column; 
+  min-height: 100vh; 
+  background-color: #121212; 
 }
 
 /* Styles cơ bản cho khu vực nội dung chính */
 .main-content {
-  flex-grow: 1; /* Chiếm không gian dọc còn lại */
+  flex-grow: 1; 
   width: 100%;
   box-sizing: border-box;
-  color: #333; /* Màu chữ mặc định cho các trang không có nền riêng */
+  color: #333;
 }
 
-/* ============================================== */
-/* === CSS CHO BACKGROUND TỪNG TRANG CỤ THỂ === */
-/* ============================================== */
-
-/* --- 1. Ảnh nền cụ thể --- */
+/* --- Ảnh nền cụ thể --- */
 .login-page-background {
   background-image: url('/Ahri_1.jpg'); /* <<< Ảnh nền trang Login */
 }
@@ -38,77 +32,40 @@
 
 
 
-/* --- 2. Thuộc tính NỀN & KÍCH THƯỚC chung --- */
-/* Áp dụng cho TẤT CẢ các trang có background riêng */
+/* ---  Thuộc tính NỀN & KÍCH THƯỚC chung --- */
 .login-page-background,
 .register-page-background,
 .home-page-background
 {
     background-size: cover;
-    background-position: center center; /* Đặt ảnh vào giữa */
+    background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Nền đứng yên khi cuộn */
-    background-color: #1a1a1a; /* Màu nền dự phòng nếu ảnh lỗi */
+    background-attachment: fixed; 
+    background-color: #1a1a1a; 
 
     /* --- Layout cơ bản chiếm không gian --- */
-    flex-grow: 1; /* Chiếm hết không gian dọc còn lại */
+    flex-grow: 1; 
     width: 100%;
-    /* !!! NHỚ KIỂM TRA LẠI CHIỀU CAO HEADER THỰC TẾ CỦA BẠN (ví dụ 60px) !!! */
-    min-height: calc(100vh - 60px); /* Chiều cao tối thiểu = màn hình - header */
+    min-height: calc(100vh - 60px);
     box-sizing: border-box;
-    padding: 20px; /* Padding chung cho nội dung cách lề */
-    max-width: none; /* Ghi đè max-width nếu có từ .main-content */
-    margin: 0; /* Ghi đè margin nếu có */
-    color: white; /* Màu chữ mặc định trên nền */
+    padding: 20px; 
+    max-width: none;
+    margin: 0;
+    color: white; 
 }
 
 
 
-/* --- 2b. Thuộc tính CĂN GIỮA NỘI DUNG (Chỉ áp dụng cho trang cần) --- */
-/* Chỉ áp dụng cho Login, Register, Home (nếu nội dung Home đơn giản) */
+/* ---  Thuộc tính CĂN GIỮA NỘI DUNG --- */
 .login-page-background,
 .register-page-background,
 .home-page-background
 {
      display: flex;
      flex-direction: column;
-     justify-content: center; /* Căn giữa nội dung theo chiều dọc */
-     align-items: center;   /* Căn giữa nội dung theo chiều ngang */
-     text-align: center;    /* Căn giữa text nếu cần */
+     justify-content: center; 
+     align-items: center;  
+     text-align: center;    
 }
 
-/* Các trang như Naptien, Accounts, SellAccount thường không cần căn giữa */
-/* toàn bộ nội dung như thế này, nên KHÔNG thêm class của chúng vào khối 2b này */
 
-
-/* --- 3. (Tùy chọn) Lớp phủ tối màu cho dễ đọc chữ --- */
-/* Nếu ảnh nền quá sáng làm chữ khó đọc, bạn có thể bỏ comment khối này */
-/*
-.login-page-background::before,
-.register-page-background::before,
-.home-page-background::before,
-.naptien-page-background::before,
-.accounts-page-background::before,
-.sell-account-page-background::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5); // Màu đen với độ mờ 50%
-  z-index: 0; // Nằm dưới nội dung
-}
-
-// Đảm bảo nội dung thực tế nằm trên lớp phủ
-.login-page-background > *,
-.register-page-background > *,
-.home-page-background > *,
-.naptien-page-background > *,
-.accounts-page-background > *,
-.sell-account-page-background > * {
-   position: relative; // Tạo ngữ cảnh xếp chồng mới
-   z-index: 1; // Nằm trên lớp phủ (::before)
-}
-*/
-
-/* --- Các CSS rules khác của bạn có thể nằm ở đây --- */
-
-/* Xóa bỏ các khối CSS dư thừa như .content-wrapper nếu bạn không dùng nó nữa */

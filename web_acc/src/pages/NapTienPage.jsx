@@ -1,7 +1,6 @@
-// src/pages/NapTienPage.jsx
 import React, { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
-import './NapTienPage.css'; // Đảm bảo file này tồn tại nếu bạn import
+import './NapTienPage.css';
 
 const qrCodeImageUrl = '/qr.png';
 
@@ -16,10 +15,7 @@ function NapTienPage() {
 
   return (
     <div className="nap-tien-page-container naptien-page-background">
-      {/* ===>>> THÊM DIV BAO BỌC NÀY <<<=== */}
       <div className="content-wrapper">
-
-        {/* Toàn bộ nội dung trang đặt bên trong content-wrapper */}
         <h1>Nạp tiền vào tài khoản</h1>
 
         <div className="qr-section">
@@ -44,7 +40,7 @@ function NapTienPage() {
           <p>Nếu sau 15-30 phút chưa thấy tiền vào tài khoản, vui lòng liên hệ bộ phận hỗ trợ.</p>
         </div>
 
-      </div> {/* ===>>> ĐÓNG DIV content-wrapper <<<=== */}
+      </div> 
     </div>
   );
 }

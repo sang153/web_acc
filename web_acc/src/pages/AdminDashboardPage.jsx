@@ -1,5 +1,4 @@
-  // src/pages/AdminDashboardPage.jsx
-  import React from 'react';
+import React from 'react';
   import { useAuth } from '../context/AuthContext';
   import { useNavigate } from 'react-router-dom';
 
@@ -44,7 +43,6 @@
           gap: '20px',
           marginBottom: '30px'
         }}>
-          {/* Card Quản lý sản phẩm */}
           <div 
             style={{
               background: 'white',
@@ -63,7 +61,6 @@
             <p>Xem, thêm, sửa, xóa sản phẩm trong hệ thống</p>
           </div>
 
-          {/* Card Quản lý sản phẩm */}
           <div 
             style={{
               background: 'white',
@@ -81,8 +78,7 @@
             <h2 style={{ color: '#1976d2' }}>Quản lý tài khoản</h2>
             <p>Xem, thêm, sửa, xóa tài khoản trong hệ thống</p>
           </div>
-
-          {/* Card Duyệt sản phẩm */}
+          
           <div 
             style={{
               background: 'white',
@@ -100,7 +96,6 @@
             <h2 style={{ color: '#4caf50' }}>Duyệt sản phẩm</h2>
             <p>Duyệt các sản phẩm mới đang chờ phê duyệt</p>
           </div>
-             {/* Card yêu cầu rút tiền */}
           <div 
             style={{
               background: 'white',

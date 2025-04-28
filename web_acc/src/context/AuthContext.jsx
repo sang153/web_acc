@@ -33,12 +33,12 @@ export const AuthProvider = ({ children }) => {
     isLoading: true,
   });
 
-  // Hàm kiểm tra vai trò admin (giống code thứ 3)
+  // Hàm kiểm tra vai trò admin
   const checkAdminRole = useCallback((userData) => {
     return userData?.VaiTro === 1;
   }, []);
 
-  // Hàm cập nhật ví (giữ từ code thứ 2)
+  // Hàm cập nhật ví
   const updateWallet = useCallback((newBalance) => {
     setAuthState(prev => ({
       ...prev,
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     }));
   }, []);
 
-  // Hàm clear auth (tương tự code thứ 3)
+  // Hàm clear auth
   const clearAuth = useCallback(() => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUser');
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
 
-  // Khởi tạo auth (kết hợp cả 2 code)
+  // Khởi tạo auth 
   useEffect(() => {
     const initializeAuth = async () => {
       try {
@@ -71,7 +71,6 @@ export const AuthProvider = ({ children }) => {
           const userData = JSON.parse(storedUser);
           const isAdmin = checkAdminRole(userData);
           
-          // CHỈ gọi API user nếu không phải admin
           if (!isAdmin) {
             const response = await axios.get('http://127.0.0.1:8000/api/user', {
               headers: { Authorization: `Bearer ${storedToken}` }
@@ -86,13 +85,12 @@ export const AuthProvider = ({ children }) => {
               isLoading: false,
             });
           } else {
-            // Đối với admin, không cần gọi API user
             setAuthState({
               isLoggedIn: true,
               isAdmin: true,
               user: userData,
               token: storedToken,
-              wallet: 0, // Admin không cần wallet
+              wallet: 0,
               isLoading: false,
             });
           }
@@ -100,7 +98,7 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error("Lỗi khi khởi tạo auth:", error);
-        clearAuth(); // Clear auth nếu có lỗi
+        clearAuth(); 
       }
       
       setAuthState(prev => ({
@@ -112,20 +110,18 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, [checkAdminRole, clearAuth]);
 
-  // Hàm login chung (kết hợp cả 2 code)
+  // Hàm login 
   const login = useCallback(async (userData, authToken) => {
     try {
-      // Thêm lấy thông tin ví như code thứ 2
       const response = await axios.get('http://127.0.0.1:8000/api/user', {
         headers: { Authorization: `Bearer ${authToken}` }
       });
 
       localStorage.setItem('authToken', authToken);
       localStorage.setItem('authUser', JSON.stringify(userData));
-      
-      // Thêm kiểm tra admin như code thứ 3
+
       const isAdmin = checkAdminRole(userData);
-      
+  
       setAuthState({
         isLoggedIn: true,
         isAdmin,
@@ -140,7 +136,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [checkAdminRole]);
 
-  // Thêm hàm adminLogin riêng như code thứ 3
+  // Thêm hàm adminLogin
   const adminLogin = useCallback((adminData, authToken) => {
     try {
       if (!checkAdminRole(adminData)) {
@@ -155,7 +151,7 @@ export const AuthProvider = ({ children }) => {
         isAdmin: true,
         user: adminData,
         token: authToken,
-        wallet: 0, // Thêm wallet mặc định là 0
+        wallet: 0, 
         isLoading: false,
       });
     } catch (error) {
@@ -164,11 +160,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [checkAdminRole]);
 
-  // Hàm logout (kết hợp cả 2 code)
+  // Hàm logout 
   const logout = useCallback(async () => {
     try {
-      // Có thể thêm gọi API logout nếu cần
-      // await axios.post('/api/logout');
     } finally {
       clearAuth();
     }
@@ -180,7 +174,7 @@ export const AuthProvider = ({ children }) => {
     adminLogin,
     logout,
     updateWallet,
-    checkAdminRole, // Thêm vào context value như code thứ 3
+    checkAdminRole, 
   };
 
   if (authState.isLoading) {

@@ -52,13 +52,13 @@ function Header() {
     }
   };
 
-  // Gọi API khi component mount hoặc khi trạng thái đăng nhập thay đổi
+
   useEffect(() => {
     let intervalId;
     
     if (isLoggedIn) {
-      fetchWalletBalance(); // Gọi ngay lập tức
-      intervalId = setInterval(fetchWalletBalance, 30000); // Cập nhật mỗi 30s
+      fetchWalletBalance(); 
+      intervalId = setInterval(fetchWalletBalance, 30000); 
     }
     
     return () => {
@@ -66,19 +66,19 @@ function Header() {
     };
   }, [isLoggedIn]);
 
-  // Hàm xử lý đăng xuất
+ 
   const handleLogout = () => {
     logout();
     navigate('/');
     setIsMobileMenuOpen(false);
   };
 
-  // Hàm toggle menu mobile
+  
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Đóng menu khi resize màn hình
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768 && isMobileMenuOpen) {
@@ -90,7 +90,7 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
-  // Hàm đóng menu khi click vào link
+  
   const handleMobileLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
@@ -98,12 +98,12 @@ function Header() {
   return (
     <header className={`app-header ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
       <nav className="main-nav">
-        {/* Logo */}
+   
         <div className="logo">
           <Link to="/">SHOPACCRIOT.COM</Link>
         </div>
 
-        {/* Nút menu mobile */}
+     
         <button 
           className="mobile-menu-icon" 
           onClick={toggleMobileMenu} 
@@ -113,10 +113,9 @@ function Header() {
           {isMobileMenuOpen ? '×' : '☰'}
         </button>
 
-        {/* Menu điều hướng */}
+     
         <div className={`nav-links-container ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="nav-links">
-            {/* Nút đóng menu trên mobile */}
             <li className="mobile-close-item">
               <button 
                 className="mobile-close-icon" 
@@ -127,11 +126,11 @@ function Header() {
               </button>
             </li>
 
-            {/* Các link chính */}
+       
             <li><Link to="/" onClick={handleMobileLinkClick}>TRANG CHỦ</Link></li>
             <li><Link to="/accounts" onClick={handleMobileLinkClick}>MUA ACC</Link></li>
             
-            {/* Link cho người dùng đã đăng nhập */}
+          
             {isLoggedIn && (
               <>
                 <li>
@@ -144,7 +143,7 @@ function Header() {
             )}
             
 
-            {/* Link đăng nhập/đăng xuất trên mobile */}
+            
             {isLoggedIn ? (
               <li className="mobile-only-auth">
                 <button onClick={handleLogout} className="logout-link">ĐĂNG XUẤT</button>
@@ -162,7 +161,7 @@ function Header() {
           </ul>
         </div>
 
-        {/* Các link xác thực trên desktop */}
+       
         <div className="auth-links desktop-only-auth">
           {isLoggedIn ? (
             <>
@@ -170,7 +169,7 @@ function Header() {
               <Link to="/rut-tien" className="auth-link-item">RÚT TIỀN</Link>
               <button onClick={handleLogout} className="logout-button">ĐĂNG XUẤT</button>
               
-              {/* Hiển thị số dư ví */}
+             
               <div className="wallet-display">
                 {isWalletLoading ? (
                   <span className="wallet-loading">ĐANG TẢI...</span>

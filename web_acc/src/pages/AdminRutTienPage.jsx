@@ -14,7 +14,7 @@ function AdminRutTienPage() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
 
-  // Load data từ localStorage khi component mount
+  
   useEffect(() => {
     loadWithdrawalRequests();
   }, []);
@@ -41,7 +41,6 @@ function AdminRutTienPage() {
   const confirmCompleteRequest = () => {
     setLoading(true);
     try {
-      // Cập nhật trạng thái trong localStorage
       const updatedRequests = withdrawalRequests.map(req => {
         if (req.id === selectedRequest.id) {
           return { ...req, status: 'completed', completedAt: new Date().toISOString() };

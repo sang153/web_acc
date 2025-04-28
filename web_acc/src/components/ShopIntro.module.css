@@ -1,14 +1,10 @@
-/* src/components/ShopIntro.module.css */
-
-/* === THAY ĐỔI FONT CHỮ === */
-/* Import font Teko từ Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;700&display=swap');
 
 /* --- Container chính --- */
 .introContainer {
-  /* Sử dụng font Teko mới */
+
   font-family: 'Teko', sans-serif;
-  /* --- Giữ nguyên các style khác --- */
+  
   padding: 35px 45px;
   text-align: center;
   max-width: 750px;
@@ -19,24 +15,24 @@
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 229, 255, 0.25);
   animation: fadeInScale 0.5s ease-out forwards;
-  letter-spacing: 0.5px; /* Teko có thể cần ít letter-spacing hơn Orbitron */
+  letter-spacing: 0.5px;
 }
 
 /* --- Tiêu đề chính (h1) --- */
 .title {
   margin-top: 0;
-  margin-bottom: 15px; /* Giảm mb một chút */
-  /* Tăng font-size vì Teko hẹp hơn Orbitron */
-  font-size: 3.5em; /* Điều chỉnh để giống ảnh */
-  font-weight: 700; /* Sử dụng weight đậm đã import */
+  margin-bottom: 15px; 
+
+  font-size: 3.5em; 
+  font-weight: 700;
   color: #ffffff;
-  line-height: 1.1; /* Điều chỉnh line-height cho Teko */
+  line-height: 1.1; 
   text-transform: uppercase;
   text-shadow:
     0 0 7px rgba(0, 229, 255, 0.9),
     0 0 12px rgba(0, 229, 255, 0.7),
     0 0 20px rgba(0, 229, 255, 0.5),
-    1px 1px 2px rgba(0, 0, 0, 0.8); /* Giảm bóng đổ đen một chút */
+    1px 1px 2px rgba(0, 0, 0, 0.8); 
 }
 
 /* --- Tên shop trong tiêu đề --- */
@@ -48,24 +44,24 @@
     0 0 30px rgba(0, 229, 255, 0.6);
 }
 
-/* --- Dòng giới thiệu phụ (p) --- */
+/* --- Dòng giới thiệu phụ --- */
 .subtitle {
   margin-bottom: 25px;
-  font-size: 1.8em; /* Tăng size cho Teko */
-  font-weight: 400; /* Sử dụng weight thường */
+  font-size: 1.8em; 
+  font-weight: 400; 
   color: #e0e0e0;
   text-shadow:
     0 0 5px rgba(0, 229, 255, 0.5),
-    1px 1px 1px rgba(0, 0, 0, 0.7); /* Giảm bóng đổ đen */
-  line-height: 1.5; /* Điều chỉnh */
+    1px 1px 1px rgba(0, 0, 0, 0.7); 
+  line-height: 1.5; 
 }
 
-/* --- Dòng kêu gọi hành động (p) --- */
+/* --- Dòng kêu gọi hành động --- */
 .callToAction {
-  font-size: 1.5em; /* Tăng size cho Teko */
+  font-size: 1.5em;
   font-weight: 400;
   color: #bdbdbd;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); /* Giảm bóng đổ đen */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8); 
   margin-top: 10px;
   line-height: 1.5;
 }
@@ -73,11 +69,11 @@
 /* --- Phần chữ được làm nổi bật (Liên Minh Huyền Thoại) --- */
 .highlight {
   color: #fff;
-  font-weight: 700; /* Có thể dùng weight đậm hơn cho phần highlight */
+  font-weight: 700; 
   text-shadow: 0 0 7px rgba(0, 229, 255, 0.7);
 }
 
-/* --- Animation (Giữ nguyên) --- */
+/* --- Animation--- */
 @keyframes fadeInScale {
   from {
     opacity: 0;
@@ -89,14 +85,14 @@
   }
 }
 
-/* --- Nút bấm (Giữ nguyên font Orbitron hoặc đổi thành Teko) --- */
+/* --- Nút bấm --- */
 .ctaButton {
-  font-family: 'Teko', sans-serif; /* Đổi font cho nút luôn */
-  /* --- Các style khác giữ nguyên --- */
+  font-family: 'Teko', sans-serif; 
+  /* --- Các style --- */
   margin-top: 30px;
-  padding: 10px 30px; /* Điều chỉnh padding cho Teko */
-  font-size: 1.4em; /* Tăng size nút */
-  font-weight: 700; /* Đậm */
+  padding: 10px 30px; 
+  font-size: 1.4em; 
+  font-weight: 700; 
   color: #ffffff;
   background: linear-gradient(45deg, #00bfff, #007bff);
   border: 2px solid #00e5ff;
@@ -117,36 +113,34 @@
 
 /* === THÊM STYLE CHO NÚT ĐÓNG (X) === */
 .closeButton {
-    position: absolute; /* Định vị tuyệt đối so với container cha */
-    top: 10px;          /* Khoảng cách từ lề trên của container */
-    right: 15px;         /* Khoảng cách từ lề phải của container */
-    background: rgba(255, 255, 255, 0.2); /* Nền mờ nhẹ */
-    color: #ffffff;     /* Màu chữ X (trắng) */
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Viền trắng mờ */
-    border-radius: 50%; /* Bo tròn thành hình tròn */
-    width: 30px;         /* Chiều rộng */
-    height: 30px;        /* Chiều cao */
-    font-size: 18px;     /* Cỡ chữ X */
-    font-weight: bold;   /* Đậm */
-    line-height: 28px;  /* Căn chữ X vào giữa theo chiều dọc (gần bằng height - border*2) */
-    text-align: center;  /* Căn chữ X vào giữa theo chiều ngang */
-    cursor: pointer;     /* Biểu tượng con trỏ tay */
-    padding: 0;          /* Bỏ padding mặc định */
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; /* Hiệu ứng chuyển đổi */
-    z-index: 10; /* Đảm bảo nút nằm trên các nội dung khác */
+    position: absolute; 
+    top: 10px;         
+    right: 15px;        
+    background: rgba(255, 255, 255, 0.2); 
+    color: #ffffff;    
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+    border-radius: 50%; 
+    width: 30px;         
+    height: 30px;       
+    font-size: 18px;    
+    font-weight: bold;  
+    line-height: 28px;  
+    text-align: center;  
+    cursor: pointer;    
+    padding: 0;      
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease; 
+    z-index: 10; 
   }
   
   .closeButton:hover {
-    background-color: rgba(255, 255, 255, 0.4); /* Nền sáng hơn khi hover */
+    background-color: rgba(255, 255, 255, 0.4); 
     color: #fff;
-    transform: scale(1.1); /* Phóng to nhẹ khi hover */
+    transform: scale(1.1); 
   }
   
-  /* --- Đảm bảo introContainer có position relative --- */
-  /* Cần thêm hoặc kiểm tra lại dòng này trong style của .introContainer nếu chưa có */
+  
   .introContainer {
-    /* ... các style cũ ... */
-    position: relative; /* Quan trọng để .closeButton định vị đúng */
+    position: relative; 
     font-family: 'Teko', sans-serif;
     padding: 35px 45px;
     text-align: center;

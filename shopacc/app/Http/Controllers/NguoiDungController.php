@@ -21,7 +21,7 @@ class NguoiDungController extends Controller
             'TenDangNhap' => $request->TenDangNhap,
             'MatKhau' => Hash::make($request->MatKhau),
             'Email' => $request->Email,
-            'VaiTro' => 0, // Mặc định là user
+            'VaiTro' => 0, 
         ]);
 
         return response()->json(['message' => 'Đăng ký thành công!', 'user' => $user], 201);
@@ -43,7 +43,7 @@ class NguoiDungController extends Controller
             'MaNguoiDung' => $user->MaNguoiDung,
             'TenDangNhap' => $user->TenDangNhap,
             'Email' => $user->Email,
-            'VaiTro' => $user->VaiTro, // Quan trọng: phải có trường này
+            'VaiTro' => $user->VaiTro, 
           ]
         ]);
       }
@@ -58,8 +58,6 @@ class NguoiDungController extends Controller
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Đăng xuất thành công!']);
     }
-
-    // Chỉ admin mới được xem danh sách người dùng
     public function index()
     {
         if (Auth::user()->VaiTro !== 1) {

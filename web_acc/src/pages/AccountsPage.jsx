@@ -9,7 +9,7 @@ function AccountsPage() {
     const [filteredAccounts, setFilteredAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [priceRange, setPriceRange] = useState([0, 10000000]); // [min, max]
+    const [priceRange, setPriceRange] = useState([0, 10000000]);
     const [inputValues, setInputValues] = useState({
         min: 0,
         max: 10000000
@@ -22,7 +22,6 @@ function AccountsPage() {
             setError(null);
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/taikhoan');
-                // Lọc ra chỉ những tài khoản đang bán (TrangThai = 0)
                 const availableAccounts = response.data.filter(account => account.TrangThai === 0);
                 setAccounts(availableAccounts || []);
                 setFilteredAccounts(availableAccounts || []);
@@ -117,7 +116,6 @@ function AccountsPage() {
             <h1>Danh sách tài khoản đang bán</h1>
             
             <div className="accounts-container">
-                {/* Thanh lọc bên trái */}
                 <div className="filter-sidebar">
                     <h3>Lọc theo giá</h3>
                     
@@ -154,8 +152,6 @@ function AccountsPage() {
                         </div>
                     </div>
                 </div>
-                
-                {/* Danh sách sản phẩm bên phải */}
                 <div className="accounts-content">
                     {renderContent()}
                 </div>

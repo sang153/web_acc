@@ -22,7 +22,7 @@ class AuthController extends Controller
             $user = User::create([
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'wallet' => 0 // Khởi tạo wallet = 0
+                'wallet' => 0 
             ]);
 
             // Tạo token ngay sau khi đăng ký
@@ -65,7 +65,7 @@ class AuthController extends Controller
             return response()->json([
                 'user' => $user,
                 'token' => $token,
-                'wallet' => $user->wallet // Trả về thông tin wallet
+                'wallet' => $user->wallet 
             ], 200);
 
         } catch (ValidationException $e) {

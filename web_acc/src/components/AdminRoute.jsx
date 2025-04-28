@@ -6,7 +6,7 @@ const AdminRoute = () => {
   const { admin, isLoading } = useAuth();
 
   if (isLoading) {
-    return <div>Loading...</div>; // Hoặc component loading
+    return <div>Loading...</div>; 
   }
 
   return admin && admin.VaiTro === 1 ? <Outlet /> : <Navigate to="/admin/login" />;

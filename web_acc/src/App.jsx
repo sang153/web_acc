@@ -81,14 +81,12 @@ function App() {
 
         <LayoutWrapper>
           <Routes>
-            {/* Public routes */}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/accounts" element={<AccountsPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/account/:accountId" element={<AccountDetailPage />} />
 
-            {/* Protected routes for regular users */}
             <Route
               path="/nap-tien"
               element={
@@ -157,7 +155,7 @@ function App() {
               }
             />
 
-            {/* Redirects */}
+            
             <Route path="/admin" element={<Navigate to="/admin/accounts" replace />} />
           </Routes>
         </LayoutWrapper>
