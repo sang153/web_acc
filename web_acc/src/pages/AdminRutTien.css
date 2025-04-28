@@ -1,0 +1,37 @@
+.quan-ly-rut-tien-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .quan-ly-rut-tien-page .content-wrapper {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .quan-ly-rut-tien-page .page-title {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  .quan-ly-rut-tien-page .withdrawal-requests-table {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .quan-ly-rut-tien-page table {
+    font-size: 14px;
+  }
+  
+  .quan-ly-rut-tien-page .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  
+  .quan-ly-rut-tien-page .action-buttons {
+    display: flex;
+    gap: 10px;
+  }

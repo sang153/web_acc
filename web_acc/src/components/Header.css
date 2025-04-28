@@ -221,3 +221,22 @@
   background-color: white;
   color: #333; /* Chữ màu đen khi hover */
 }
+
+.wallet-display {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  color: white;
+  font-size: 14px;
+}
+
+.wallet-label {
+  margin-right: 5px;
+  opacity: 0.8;
+}
+
+.wallet-amount {
+  font-weight: bold;
+  color: #4CAF50;
+  margin-right: 5px;
+}

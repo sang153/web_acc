@@ -1,4 +1,3 @@
-// src/pages/AccountsPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -23,8 +22,10 @@ function AccountsPage() {
             setError(null);
             try {
                 const response = await axios.get('http://127.0.0.1:8001/api/taikhoan');
-                setAccounts(response.data || []);
-                setFilteredAccounts(response.data || []);
+                // Lọc ra chỉ những tài khoản đang bán (TrangThai = 0)
+                const availableAccounts = response.data.filter(account => account.TrangThai === 0);
+                setAccounts(availableAccounts || []);
+                setFilteredAccounts(availableAccounts || []);
             } catch (err) {
                 console.error("Lỗi khi fetch tài khoản:", err);
                 setError('Không thể tải danh sách tài khoản. Vui lòng thử lại sau.');
@@ -70,15 +71,15 @@ function AccountsPage() {
     // --- Hàm render nội dung ---
     const renderContent = () => {
         if (loading) {
-            return <p style={{ textAlign: 'center', padding: '50px' }}>Đang tải danh sách tài khoản...</p>;
+            return <p className="loading-message">Đang tải danh sách tài khoản...</p>;
         }
 
         if (error) {
-            return <p className="error-message" style={{ textAlign: 'center', padding: '50px' }}>{error}</p>;
+            return <p className="error-message">{error}</p>;
         }
 
         if (filteredAccounts.length === 0) {
-            return <p style={{ textAlign: 'center' }}>Không có tài khoản nào phù hợp với bộ lọc hiện tại.</p>;
+            return <p className="no-accounts-message">Không có tài khoản nào phù hợp với bộ lọc hiện tại.</p>;
         }
 
         return (

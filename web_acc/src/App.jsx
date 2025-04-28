@@ -12,12 +12,15 @@ import LoginAdminPage from './pages/LoginAdminPage';
 import AccountsPage from './pages/AccountsPage';
 import RegisterPage from './pages/RegisterPage';
 import NapTienPage from './pages/NapTienPage';
+import RutTienPage from './pages/RutTienPage';
 import SellAccountPage from './pages/SellAccountPage';
 import AccountDetailPage from './pages/AccountDetailPage';
 import AdminAccountsPage from './pages/AdminAccountsPage';
 import PendingApprovalPage from './pages/PendingApprovalPage';
 import AuthContext from './context/AuthContext';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import AdminUsersPage from './pages/AdminUsersPage';
+import AdminRutTienPage from './pages/AdminRutTienPage';
 import './App.css';
 
 function ProtectedRoute({ children }) {
@@ -95,6 +98,14 @@ function App() {
               }
             />
             <Route
+              path="/rut-tien"
+              element={
+                <ProtectedRoute>
+                  <RutTienPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/sell-account"
               element={
                 <ProtectedRoute>
@@ -114,10 +125,26 @@ function App() {
               }
             />
             <Route
+              path="/admin/users"
+              element={
+                <AdminRoute>
+                  <AdminUsersPage />
+                </AdminRoute>
+              }
+            />
+            <Route
               path="/admin/pending-approval"
               element={
                 <AdminRoute>
                   <PendingApprovalPage />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/yeu-cau-rut-tien"
+              element={
+                <AdminRoute>
+                  <AdminRutTienPage />
                 </AdminRoute>
               }
             />

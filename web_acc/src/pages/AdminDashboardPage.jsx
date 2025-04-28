@@ -31,8 +31,8 @@
             marginBottom: '30px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
           }}>
-            <h2 style={{ marginTop: 0 }}>Thông tin Admin</h2>
-            <p><strong>Tai Khoan:</strong> {user.TenDangNhap || 'Chưa cập nhật'}</p>
+            <h2 style={{ marginTop: 0, textAlign: 'left' }}>Thông tin Admin</h2>
+            <p><strong>Tài Khoản:</strong> {user.TenDangNhap || 'Chưa cập nhật'}</p>
             <p><strong>Email:</strong> {user.Email}</p>
             <p><strong>Số điện thoại:</strong> {user.SoDienThoai || 'Chưa cập nhật'}</p>
           </div>
@@ -63,6 +63,25 @@
             <p>Xem, thêm, sửa, xóa sản phẩm trong hệ thống</p>
           </div>
 
+          {/* Card Quản lý sản phẩm */}
+          <div 
+            style={{
+              background: 'white',
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              cursor: 'pointer',
+              transition: 'transform 0.3s',
+              ':hover': {
+                transform: 'translateY(-5px)'
+              }
+            }}
+            onClick={() => navigate('/admin/users')}
+          >
+            <h2 style={{ color: '#1976d2' }}>Quản lý tài khoản</h2>
+            <p>Xem, thêm, sửa, xóa tài khoản trong hệ thống</p>
+          </div>
+
           {/* Card Duyệt sản phẩm */}
           <div 
             style={{
@@ -80,6 +99,24 @@
           >
             <h2 style={{ color: '#4caf50' }}>Duyệt sản phẩm</h2>
             <p>Duyệt các sản phẩm mới đang chờ phê duyệt</p>
+          </div>
+             {/* Card yêu cầu rút tiền */}
+          <div 
+            style={{
+              background: 'white',
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+              cursor: 'pointer',
+              transition: 'transform 0.3s',
+              ':hover': {
+                transform: 'translateY(-5px)'
+              }
+            }}
+            onClick={() => navigate('/admin/yeu-cau-rut-tien')}
+          >
+            <h2 style={{ color: '#4caf50' }}>Yêu cầu rút tiền</h2>
+            <p>Các yêu cầu rút tiền mới được tạo</p>
           </div>
         </div>
 

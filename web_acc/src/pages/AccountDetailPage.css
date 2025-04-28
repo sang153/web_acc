@@ -1,100 +1,285 @@
-/* src/pages/AccountDetailPage.css */
-
 /* --- Style cho container chính của trang chi tiết --- */
 .account-detail-page {
-    padding: 30px; /* Tăng padding */
-    max-width: 900px; /* Giới hạn chiều rộng nội dung */
-    margin: 20px auto; /* Căn giữa trang và tạo khoảng cách trên dưới */
-    color: #e0e0e0; /* Màu chữ mặc định sáng hơn trên nền tối */
-    background-color: rgba(30, 30, 30, 0.6); /* Nền hơi tối, hơi mờ (tùy chọn) */
-    border-radius: 8px; /* Bo góc nhẹ (tùy chọn) */
-    /* min-height: calc(100vh - 100px); */ /* Đảm bảo chiều cao nếu cần */
-  }
-  
-  /* Style cho tiêu đề chính H1 */
-  .account-detail-page h1 {
-    text-align: center;
-    color: white;
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  }
-  
-  /* Style cho tiêu đề phụ H2 (Thông tin chi tiết...) */
-  .account-detail-page h2 {
-    color: #00e5ff; /* Màu xanh cyan */
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #00e5ff; /* Đường gạch chân */
-    padding-bottom: 5px;
-  }
-  
-  /* Style chung cho các đoạn văn bản */
-  .account-detail-page p {
-    line-height: 1.6; /* Giãn dòng */
-    margin-bottom: 12px;
-    font-size: 1.05em; /* Tăng nhẹ cỡ chữ */
-  }
-  
-  /* Style cho phần text được bôi đậm */
-  .account-detail-page strong {
-    color: white; /* Làm chữ đậm màu trắng */
-    margin-right: 8px;
-  }
-  
-  /* Style cho nút "Mua Ngay" */
-  /* Sử dụng lại style tương tự nút .details-button nếu muốn thống nhất */
-  .account-detail-page button {
-    display: inline-block;
-    text-decoration: none;
-    background-color: #4caf50; /* Màu xanh lá cây */
-    color: white !important;
-    padding: 12px 25px; /* Nút to hơn */
-    border-radius: 5px;
-    text-align: center;
-    transition: background-color 0.2s ease;
-    margin-top: 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1em;
-    font-weight: bold;
-  }
-  
-  .account-detail-page button:hover {
-    background-color: #388e3c; /* Màu xanh lá đậm hơn */
-    color: white !important;
-  }
-  
-  /* Style cho thông báo lỗi (tương tự các trang khác) */
-  .account-detail-page .error-message {
-    color: #ff4d4d;
-    background-color: rgba(255, 77, 77, 0.1);
-    border: 1px solid #ff4d4d;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 15px;
-    text-align: center;
-    text-shadow: none;
-  }
-  
-  /* Style cho thông báo loading (nếu dùng thẻ p) */
-  .account-detail-page p:first-child { /* Target thẻ p đầu tiên (thường là loading) */
-      text-align: center;
-      font-style: italic;
-      color: #ccc;
-  }
+  padding: 30px;
+  max-width: 900px;
+  margin: 20px auto;
+  color: #e0e0e0;
+  background-color: rgba(30, 30, 30, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
 
-  /* Thêm vào file AccountDetailPage.css */
+/* Tiêu đề trang */
+.page-title {
+  color: #fff;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.title-icon {
+  margin-right: 10px;
+}
+
+/* Phần thông tin game */
+.game-info-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.game-info-section h3 {
+  color: #00e5ff;
+  margin: 0;
+}
+
+.game-icon {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+
+/* Phần thông tin chính */
+.main-info {
+  margin-top: 20px;
+}
+
+.main-info h2 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.detail-section {
+  margin-bottom: 25px;
+}
+
+.section-title {
+  color: #00e5ff;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.full-description {
+  line-height: 1.6;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Phần giá bán */
 .price-section {
-  margin-bottom: 15px;
+  margin: 25px 0;
+  padding: 15px;
+  border-radius: 5px;
 }
 
 .inline-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .price-value {
-  font-size: 1em;
+  color: #4caf50;
+  font-size: 1.2em;
   font-weight: bold;
+}
+
+.wallet-info {
+  margin-top: 10px;
+  color: #ffc107;
+  font-size: 0.9em;
+}
+
+/* Nút hành động */
+.action-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.buy-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+  background-color: #388e3c;
+}
+
+.buy-button.sold {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.buy-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #6c757d;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.back-link:hover {
+  background-color: #5a6268;
+  color: white;
+}
+
+/* Thông báo lỗi */
+.error-message {
+  color: #ff4d4d;
+  background-color: rgba(255, 77, 77, 0.1);
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Modal */
+.modal-title {
+  color: #ff0000;
+}
+
+.purchase-success {
+  background-color: #6c757d;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.account-info {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+  margin: 10px 0;
+}
+
+.account-info p {
+  margin-bottom: 10px;
+  word-break: break-all;
+  color: #333;
+}
+
+/* Loading spinner */
+.text-center {
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .account-detail-page {
+      padding: 15px;
+  }
+  
+  .action-buttons {
+      flex-direction: column;
+  }
+  
+  .back-link {
+      text-align: center;
+  }
+}
+
+/* --- Modal Overlay và Positioning --- */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1040;
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1050;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 20px;
+  background-color: #625f5f;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header, .modal-footer {
+  padding: 15px 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-header{
+  border-bottom: 1px solid;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* Darken page when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Animation for modal */
+.modal.fade .modal-content {
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+.modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  width: auto;
+  max-width: 500px;
+  margin: 0;
+}
+
+.modal-backdrop.show {
+  opacity: 0.8 !important;
+  background-color: #000 !important;
 }

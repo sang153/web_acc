@@ -1,165 +1,192 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useContext } from 'react';
-import AuthContext from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import './Header.css'; // Đảm bảo bạn có file CSS này hoặc style theo cách khác
+import AuthContext from '../context/AuthContext';
+import './Header.css';
 import axios from 'axios';
-
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isLoggedIn, user, logout } = useContext(AuthContext);
+  const { 
+    isLoggedIn, 
+    user, 
+    wallet, 
+    logout,
+    updateWallet
+  } = useContext(AuthContext);
+  
   const isAdmin = user?.VaiTro === 1;
   const navigate = useNavigate();
-  const [wallet, setWallet] = useState(0);
-  const [walletLoading, setWalletLoading] = useState(false);
+  const [isWalletLoading, setIsWalletLoading] = useState(false);
+ 
 
-  // Hàm lấy số dư từ API
-  const fetchWallet = async () => {
+  // Hàm lấy số dư ví từ API
+  const fetchWalletBalance = async () => {
     if (!isLoggedIn) return;
     
-    setWalletLoading(true);
+    setIsWalletLoading(true);
     try {
-      const response = await axios.get('http://127.0.0.1:8001/api/test-auth', {
+      const response = await axios.get('http://127.0.0.1:8001/api/user', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`
         },
-        withCredentials: true // Thêm dòng này
+        withCredentials: true
       });
-      setWallet(response.data.wallet || 0);
+      
+      console.log('API Wallet Response:', response.data);
+      
+      // Cập nhật số dư vào AuthContext
+      const walletData = response.data.wallet;
+      if (typeof walletData !== 'undefined') {
+        updateWallet(walletData);
+      } else {
+        console.warn('Wallet data not found in response');
+      }
     } catch (error) {
       console.error('Lỗi khi lấy thông tin ví:', error);
       if (error.response?.status === 401) {
         logout();
+        navigate('/login');
       }
     } finally {
-      setWalletLoading(false);
+      setIsWalletLoading(false);
     }
   };
 
   // Gọi API khi component mount hoặc khi trạng thái đăng nhập thay đổi
   useEffect(() => {
+    let intervalId;
+    
     if (isLoggedIn) {
-      const interval = setInterval(fetchWallet, 30000); // Làm mới mỗi 30s
-      return () => clearInterval(interval);
+      fetchWalletBalance(); // Gọi ngay lập tức
+      intervalId = setInterval(fetchWalletBalance, 30000); // Cập nhật mỗi 30s
     }
+    
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [isLoggedIn]);
 
+  // Hàm xử lý đăng xuất
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMobileMenuOpen(false);
+  };
+
+  // Hàm toggle menu mobile
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Đóng menu khi resize màn hình
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768 && isMobileMenuOpen) {
         setIsMobileMenuOpen(false);
       }
     };
+    
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
-  const handleLogout = () => {
-     if (typeof logout === 'function') {
-         logout();
-         navigate('/'); // Chuyển về trang chủ
-     } else {
-         console.error("Hàm logout không được cung cấp bởi AuthContext");
-     }
-     setIsMobileMenuOpen(false); // Đóng menu mobile sau khi logout
-  }
-
-  // Hàm xử lý khi nhấn vào link trên mobile menu để đóng menu lại
+  // Hàm đóng menu khi click vào link
   const handleMobileLinkClick = () => {
-      setIsMobileMenuOpen(false);
-  }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    // Thêm class 'mobile-menu-active' khi menu mobile mở để có thể style riêng
     <header className={`app-header ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
       <nav className="main-nav">
+        {/* Logo */}
         <div className="logo">
           <Link to="/">SHOPACCRIOT.COM</Link>
         </div>
 
-        {/* Nút bật/tắt menu mobile */}
-        <button className="mobile-menu-icon" onClick={toggleMobileMenu} aria-label="Mở menu" aria-expanded={isMobileMenuOpen}>
-          ☰
+        {/* Nút menu mobile */}
+        <button 
+          className="mobile-menu-icon" 
+          onClick={toggleMobileMenu} 
+          aria-label={isMobileMenuOpen ? "Đóng menu" : "Mở menu"}
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? '×' : '☰'}
         </button>
 
-        {/* Container chứa các link điều hướng, xử lý hiển thị mobile */}
+        {/* Menu điều hướng */}
         <div className={`nav-links-container ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <ul className="nav-links">
             {/* Nút đóng menu trên mobile */}
             <li className="mobile-close-item">
-                <button className="mobile-close-icon" onClick={toggleMobileMenu} aria-label="Đóng menu">×</button>
+              <button 
+                className="mobile-close-icon" 
+                onClick={toggleMobileMenu} 
+                aria-label="Đóng menu"
+              >
+                ×
+              </button>
             </li>
 
             {/* Các link chính */}
             <li><Link to="/" onClick={handleMobileLinkClick}>TRANG CHỦ</Link></li>
             <li><Link to="/accounts" onClick={handleMobileLinkClick}>MUA ACC</Link></li>
-            {isLoggedIn && 
-            (
-             <li>
-              {/* Đặt đường dẫn tạm thời là /sell-account, bạn sẽ tạo Route cho nó sau */}
+            
+            {/* Link cho người dùng đã đăng nhập */}
+            {isLoggedIn && (
+              <>
+                <li>
                   <Link to="/sell-account" onClick={handleMobileLinkClick}>BÁN ACC</Link>
                 </li>
+                <li className="mobile-only-nav-item"> 
+                  <Link to="/nap-tien" onClick={handleMobileLinkClick}>NẠP TIỀN</Link>
+                </li> 
+              </>
             )}
-            {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - MOBILE <<<=== */}
-            {isLoggedIn && (
-              <li className="mobile-only-nav-item"> 
-                <Link to="/nap-tien" onClick={handleMobileLinkClick}>NẠP TIỀN</Link>
-              </li>
-            )}
-            {/* ===================================================================== */}
-
-
-            {/* Link Quản lý chỉ hiển thị cho Admin đã login */}
+            
+            {/* Link cho admin */}
             {isLoggedIn && isAdmin && (
               <li><Link to="/admin/quan-ly-acc" onClick={handleMobileLinkClick}>QUẢN LÝ ACC</Link></li>
             )}
 
-            {/* Các link Đăng nhập/Đăng ký/Đăng xuất hiển thị trên Mobile */}
+            {/* Link đăng nhập/đăng xuất trên mobile */}
             {isLoggedIn ? (
-              <>
-                {/* Có thể thêm link profile ở đây nếu muốn */}
-                {/* <li><Link to="/profile" onClick={handleMobileLinkClick}>Tài khoản ({user?.HoTen})</Link></li> */}
-                <li className="mobile-only-auth"><a href="#!" onClick={handleLogout}>Đăng xuất</a></li>
-                
-              
-              </>
-
+              <li className="mobile-only-auth">
+                <button onClick={handleLogout} className="logout-link">ĐĂNG XUẤT</button>
+              </li>
             ) : (
               <>
-                <li className="mobile-only-auth"><Link to="/login" onClick={handleMobileLinkClick}>Đăng nhập</Link></li>
-                <li className="mobile-only-auth"><Link to="/register" onClick={handleMobileLinkClick}>Đăng ký</Link></li>
+                <li className="mobile-only-auth">
+                  <Link to="/login" onClick={handleMobileLinkClick}>ĐĂNG NHẬP</Link>
+                </li>
+                <li className="mobile-only-auth">
+                  <Link to="/register" onClick={handleMobileLinkClick}>ĐĂNG KÝ</Link>
+                </li>
               </>
             )}
           </ul>
         </div>
 
-        {/* Các link xác thực chỉ hiển thị trên Desktop */}
+        {/* Các link xác thực trên desktop */}
         <div className="auth-links desktop-only-auth">
           {isLoggedIn ? (
             <>
-              {/* ===>>> THÊM LINK NẠP TIỀN (CHỈ HIỂN THỊ KHI ĐÃ LOGIN) - DESKTOP <<<=== */}
               <Link to="/nap-tien" className="auth-link-item">NẠP TIỀN</Link>
-              {/* ======================================================================= */}
-
-              {/* Có thể hiển thị tên user nếu muốn */}
-              {/* <span style={{ marginRight: '15px', color: '#ddd' }}>Chào, {user?.HoTen}!</span> */}
-
-              <button onClick={handleLogout} className="logout-button">Đăng xuất</button>
-
-              {/* Hiển thị ví tiền trên desktop */}
+              <Link to="/rut-tien" className="auth-link-item">RÚT TIỀN</Link>
+              <button onClick={handleLogout} className="logout-button">ĐĂNG XUẤT</button>
+              
+              {/* Hiển thị số dư ví */}
               <div className="wallet-display">
-                {walletLoading ? (
-                  <span>...</span>
+                {isWalletLoading ? (
+                  <span className="wallet-loading">ĐANG TẢI...</span>
                 ) : (
                   <>
-                    <span className="wallet-label">Ví:</span>
+                    <span className="wallet-label">SỐ DƯ:</span>
                     <span className="wallet-amount">
-                      {wallet.toLocaleString('vi-VN')} VND
+                      {wallet.toLocaleString('vi-VN', { 
+                        style: 'currency', 
+                        currency: 'VND',
+                        minimumFractionDigits: 0
+                      })}
                     </span>
                   </>
                 )}
@@ -167,8 +194,8 @@ function Header() {
             </>
           ) : (
             <>
-              <Link to="/login" className="auth-link-item">Đăng nhập</Link>
-              <Link to="/register" className="auth-link-item">Đăng ký</Link>
+              <Link to="/login" className="auth-link-item">ĐĂNG NHẬP</Link>
+              <Link to="/register" className="auth-link-item">ĐĂNG KÝ</Link>
             </>
           )}
         </div>
@@ -178,35 +205,3 @@ function Header() {
 }
 
 export default Header;
-
-/* --- CSS gợi ý cho nút logout và link (thêm vào Header.css) --- */
-/*
-.logout-button, .auth-link-item {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-  padding: 8px 12px;
-  border: 1px solid white;
-  border-radius: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: inherit;
-  font-family: inherit;
-}
-
-.logout-button:hover, .auth-link-item:hover {
-    background-color: white;
-    color: #333;
-}
-
-// CSS để ẩn/hiện link theo màn hình (ví dụ)
-.mobile-only-auth { display: none; } // Mặc định ẩn trên desktop
-.desktop-only-auth { display: flex; align-items: center; } // Mặc định hiện trên desktop
-
-@media (max-width: 768px) {
-  .mobile-only-auth { display: block; } // Hiện trên mobile
-  .desktop-only-auth { display: none; } // Ẩn trên mobile
-  // Cần thêm các style khác cho menu mobile hoạt động đúng
-}
-*/
