@@ -144,6 +144,7 @@ function AdminAccountsPage() {
                     <thead>
                         <tr>
                             <th>Mã TK</th>
+                            <th>Mã người bán</th>
                             <th>Tài khoản</th>
                             <th>Mật khẩu</th>
                             <th>Mô tả</th>
@@ -156,6 +157,7 @@ function AdminAccountsPage() {
                         {accounts.map((account) => (
                             <tr key={account.MaTaiKhoan} className={account.TrangThai === 1 ? 'sold' : ''}>
                                 <td>{account.MaTaiKhoan}</td>
+                                <td>{account.MaNguoiDungBan}</td>
                                 <td>{account.TenTaiKhoan || 'Không có'}</td>
                                 <td>{account.MatKhauTaiKhoan || 'Không có'}</td>
                                 <td>{account.MoTa || 'Không có'}</td>

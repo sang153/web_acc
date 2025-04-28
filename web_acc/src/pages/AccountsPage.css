@@ -124,6 +124,7 @@
   }
 /* --- Container cho thanh lọc --- */
 .filter-sidebar {
+  height: 40%;
   margin-top: 20px;
   background-color: rgba(40, 40, 40, 0.9); /* Màu nền trầm tương tự như thẻ tài khoản */
   border: 1px solid #666; /* Đường viền tương tự */

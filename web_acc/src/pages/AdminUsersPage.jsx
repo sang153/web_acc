@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './AdminAccountsPage.css';
-import { useAuth } from '../context/AuthContext';
+
 function AdminUsersPage() {
     const navigate = useNavigate();
-    const { updateWallet } = useAuth();
     const [accounts, setAccounts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -14,6 +13,7 @@ function AdminUsersPage() {
     const [formValues, setFormValues] = useState({
         id: '',
         email: '',
+        password: '',
         wallet: 0,
     });
 
@@ -26,13 +26,9 @@ function AdminUsersPage() {
         setError(null);
         try {
             const response = await axios.get('http://127.0.0.1:8001/api/User');
-            const accountsData = Array.isArray(response.data) 
-                ? response.data 
-                : response.data.data || [];
-            setAccounts(accountsData);
+            setAccounts(response.data || []);
         } catch (err) {
-            console.error("Lỗi khi tải tài khoản:", err);
-            setError('Không thể tải danh sách tài khoản. Vui lòng thử lại sau.');
+            console.error("Lỗi khi fetch tài khoản:", err);
             showNotificationMessage('Không thể tải danh sách tài khoản. Vui lòng thử lại sau.', 'error');
         } finally {
             setLoading(false);
@@ -46,8 +42,10 @@ function AdminUsersPage() {
     const showNotificationMessage = (message, type) => {
         if (type === 'success') {
             setSuccessMessage(message);
+            setError(null);
         } else {
             setError(message);
+            setSuccessMessage(null);
         }
         setShowNotification(true);
         setTimeout(() => {
@@ -61,7 +59,7 @@ function AdminUsersPage() {
         const { name, value } = e.target;
         setFormValues(prev => ({
             ...prev,
-            [name]: name === 'wallet' ? parseFloat(value) || 0 : value,
+            [name]: name === 'wallet' ? parseFloat(value)|| 0 : value,
         }));
     };
 
@@ -69,7 +67,6 @@ function AdminUsersPage() {
         try {
             await axios.delete(`http://127.0.0.1:8001/api/User/${id}`);
             showNotificationMessage('Xóa tài khoản thành công!', 'success');
-            // Tải lại danh sách sau khi xóa
             setTimeout(() => fetchAccounts(), 500);
         } catch (err) {
             console.error("Lỗi khi xóa tài khoản:", err);
@@ -79,59 +76,32 @@ function AdminUsersPage() {
 
     const updateAccount = async () => {
         try {
-          // 1. Gọi API cập nhật trên server
-          const response = await axios.put(
-            `http://127.0.0.1:8001/api/User/${formValues.id}`,
-            { wallet: formValues.wallet },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem('authToken')}`
-              }
-            }
-          );
-      
-          // 2. Cập nhật trong AuthContext (giống AccountDetailPage)
-          const success = await updateWallet(response.data.wallet);
-          
-          if (!success) {
-            throw new Error('Cập nhật ví không thành công');
-          }
-      
-      
-          showNotificationMessage('Cập nhật ví thành công!', 'success');
-          resetForm();
-          
+            await axios.put(`http://127.0.0.1:8001/api/User/${formValues.id}`, formValues);
+            showNotificationMessage('Cập nhật tài khoản thành công!', 'success');
+            resetForm();
+            setTimeout(() => fetchAccounts(), 500);
         } catch (err) {
-          console.error("Lỗi khi cập nhật ví:", err);
-          const errorMessage = err.response?.data?.message 
-            || 'Không thể cập nhật ví. Vui lòng thử lại sau.';
-          showNotificationMessage(errorMessage, 'error');
+            console.error("Lỗi khi cập nhật tài khoản:", err);
+            showNotificationMessage('Không thể cập nhật tài khoản. Vui lòng thử lại sau.', 'error');
         }
-      };
+    };
 
     const resetForm = () => {
         setFormValues({
-            id: '',  
+            id:'',  
             email: '',
+            password: '',
             wallet: 0,
         });
     };
 
     const editAccount = (account) => {
-        setFormValues({
-            id: account.id,
-            email: account.email,
-            wallet: account.wallet || 0
-        });
+        setFormValues(account);
     };
 
     const renderContent = () => {
         if (loading) {
             return <div className="loading-container"><p className="loading-message">Đang tải danh sách tài khoản...</p></div>;
-        }
-
-        if (error && !showNotification) {
-            return <div className="message-container"><p className="error-message">{error}</p></div>;
         }
 
         if (accounts.length === 0) {
@@ -191,7 +161,7 @@ function AdminUsersPage() {
                 <div className={`notification ${successMessage ? 'success' : 'error'}`}>
                     {successMessage || error}
                 </div>
-            )}
+            )}                         
 
             <div className="form-container">
                 <form className="account-form">
