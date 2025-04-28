@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaikhoanController;
 use App\Http\Controllers\NguoiDungController;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,31 +39,40 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 });
-Route::get('/test-auth', function (Request $request) {
-    // Bypass auth để test
-    $user = \App\Models\User::first(); 
-    Auth::login($user);
-    
-    return response()->json([
-        'user' => $request->user(),
-    ]);
-});
 
        // Lấy tất cả tài khoản
 Route::post('/taikhoan', [TaikhoanController::class, 'store']);        // Thêm tài khoản mới
 Route::get('/taikhoan/{id}', [TaikhoanController::class, 'show']);     // Xem 1 tài khoản
 Route::put('/taikhoan/{id}', [TaikhoanController::class, 'update']);   // Cập nhật tài khoản
 Route::delete('/taikhoan/{id}', [TaikhoanController::class, 'destroy']); // Xóa tài khoản
-
 Route::middleware('api')->group(function () {
     // Endpoint để lấy danh sách tài khoản đã duyệt, công khai
     Route::get('/taikhoan', [TaiKhoanController::class, 'index']);
 });
+Route::post('/taikhoan/{id}/mua', [TaiKhoanController::class, 'muaTaiKhoan'])
+    ->middleware('auth:sanctum');
 
 
+Route::post('/rut-tien', [UsersController::class, 'rutTien'])
+    ->middleware('auth:sanctum');
+Route::post('/nap-tien', [UsersController::class, 'napTien'])
+    ->middleware('auth:sanctum');
+Route::get('/User/{id}', [UsersController::class, 'show']);     // Xem 1 tài khoản
+Route::put('/User/{id}', [UsersController::class, 'update']);   // Cập nhật tài khoản
+Route::delete('/User/{id}', [UsersController::class, 'destroy']); // Xóa tài khoản
+Route::middleware('api')->group(function () {
+    // Endpoint để lấy danh sách tài khoản đã duyệt, công khai
+    Route::get('/User', [UsersController::class, 'index']);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/User/{id}/wallet', [UsersController::class, 'updateWallet'])
+        ->middleware('can:update-wallet'); // Thêm authorization
+});
 
 
-Route::post('/register', [NguoiDungController::class, 'register']);
+    
+
+
 Route::post('/login', [NguoiDungController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [NguoiDungController::class, 'me']);
@@ -70,3 +80,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [NguoiDungController::class, 'index']); // Chỉ admin
     Route::get('/users/{id}', [NguoiDungController::class, 'show']);
 });
+//php artisan serve

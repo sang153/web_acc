@@ -16,9 +16,9 @@ return new class extends Migration
         if (!Schema::hasTable('users')) {
             Schema::create('users', function (Blueprint $table) {
                 $table->id();
-                $table->string('username')->nullable();
-                $table->string('email')->nullable();
+                $table->string('email')->unique()->nullable();
                 $table->string('password');
+                $table->decimal('wallet', 15, 2)->default(0); // Thêm trường wallet
                 $table->rememberToken();
                 $table->timestamps();
             });
