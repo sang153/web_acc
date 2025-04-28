@@ -40,6 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
+
+
+
        // Lấy tất cả tài khoản
 Route::post('/taikhoan', [TaikhoanController::class, 'store']);        // Thêm tài khoản mới
 Route::get('/taikhoan/{id}', [TaikhoanController::class, 'show']);     // Xem 1 tài khoản
@@ -53,9 +56,9 @@ Route::post('/taikhoan/{id}/mua', [TaiKhoanController::class, 'muaTaiKhoan'])
     ->middleware('auth:sanctum');
 
 
+
+
 Route::post('/rut-tien', [UsersController::class, 'rutTien'])
-    ->middleware('auth:sanctum');
-Route::post('/nap-tien', [UsersController::class, 'napTien'])
     ->middleware('auth:sanctum');
 Route::get('/User/{id}', [UsersController::class, 'show']);     // Xem 1 tài khoản
 Route::put('/User/{id}', [UsersController::class, 'update']);   // Cập nhật tài khoản
