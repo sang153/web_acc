@@ -25,7 +25,7 @@ function Header() {
     
     setIsWalletLoading(true);
     try {
-      const response = await axios.get('http://127.0.0.1:8001/api/user', {
+      const response = await axios.get('http://127.0.0.1:8000/api/user', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('authToken')}`
         },
@@ -143,10 +143,6 @@ function Header() {
               </>
             )}
             
-            {/* Link cho admin */}
-            {isLoggedIn && isAdmin && (
-              <li><Link to="/admin/quan-ly-acc" onClick={handleMobileLinkClick}>QUẢN LÝ ACC</Link></li>
-            )}
 
             {/* Link đăng nhập/đăng xuất trên mobile */}
             {isLoggedIn ? (
@@ -182,7 +178,7 @@ function Header() {
                   <>
                     <span className="wallet-label">SỐ DƯ:</span>
                     <span className="wallet-amount">
-                      {wallet.toLocaleString('vi-VN', { 
+                      {(wallet??0).toLocaleString('vi-VN', { 
                         style: 'currency', 
                         currency: 'VND',
                         minimumFractionDigits: 0

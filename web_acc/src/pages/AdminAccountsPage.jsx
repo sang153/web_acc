@@ -27,7 +27,7 @@ function AdminAccountsPage() {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://127.0.0.1:8001/api/taikhoan');
+            const response = await axios.get('http://127.0.0.1:8000/api/taikhoan');
             setAccounts(response.data || []);
         } catch (err) {
             console.error("Lỗi khi fetch tài khoản:", err);
@@ -65,7 +65,7 @@ function AdminAccountsPage() {
 
     const addAccount = async () => {
         try {
-            await axios.post('http://127.0.0.1:8001/api/taikhoan', formValues);
+            await axios.post('http://127.0.0.1:8000/api/taikhoan', formValues);
             showNotificationMessage('Thêm tài khoản thành công!', 'success');
             resetForm();
             setTimeout(() => fetchAccounts(), 500);
@@ -83,7 +83,7 @@ function AdminAccountsPage() {
                 return;
             }
             
-            await axios.delete(`http://127.0.0.1:8001/api/taikhoan/${maTaiKhoan}`);
+            await axios.delete(`http://127.0.0.1:8000/api/taikhoan/${maTaiKhoan}`);
             showNotificationMessage('Xóa tài khoản thành công!', 'success');
             setTimeout(() => fetchAccounts(), 500);
         } catch (err) {
@@ -100,7 +100,7 @@ function AdminAccountsPage() {
                 return;
             }
             
-            await axios.put(`http://127.0.0.1:8001/api/taikhoan/${formValues.MaTaiKhoan}`, formValues);
+            await axios.put(`http://127.0.0.1:8000/api/taikhoan/${formValues.MaTaiKhoan}`, formValues);
             showNotificationMessage('Cập nhật tài khoản thành công!', 'success');
             resetForm();
             setTimeout(() => fetchAccounts(), 500);

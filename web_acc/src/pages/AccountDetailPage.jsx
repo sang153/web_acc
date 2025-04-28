@@ -25,7 +25,7 @@ function AccountDetailPage() {
     useEffect(() => {
         const fetchAccountDetails = async () => {
             try {
-                const { data } = await axios.get(`http://127.0.0.1:8001/api/taikhoan/${accountId}`);
+                const { data } = await axios.get(`http://127.0.0.1:8000/api/taikhoan/${accountId}`);
                 
                 if (!data) throw new Error('Dữ liệu trống');
                 
@@ -73,7 +73,7 @@ function AccountDetailPage() {
         
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8001/api/taikhoan/${accountId}/mua`,
+                `http://127.0.0.1:8000/api/taikhoan/${accountId}/mua`,
                 {},
                 {
                     headers: {

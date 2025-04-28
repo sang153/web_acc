@@ -21,7 +21,7 @@ function AccountsPage() {
             setLoading(true);
             setError(null);
             try {
-                const response = await axios.get('http://127.0.0.1:8001/api/taikhoan');
+                const response = await axios.get('http://127.0.0.1:8000/api/taikhoan');
                 // Lọc ra chỉ những tài khoản đang bán (TrangThai = 0)
                 const availableAccounts = response.data.filter(account => account.TrangThai === 0);
                 setAccounts(availableAccounts || []);

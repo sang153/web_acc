@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Thiết lập Axios
-axios.defaults.baseURL = 'http://127.0.0.1:8001';
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
 axios.defaults.withCredentials = true;
 
 function RegisterPage() {
