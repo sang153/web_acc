@@ -55,7 +55,7 @@ function PendingApprovalPage() {
             };
     
             // 3. Gửi request POST để thêm vào database
-            const response = await axios.post('http://127.0.0.1:8001/api/taikhoan', accountData);
+            const response = await axios.post('http://127.0.0.1:8000/api/taikhoan', accountData);
             
             // 4. Cập nhật localStorage (xóa account đã duyệt)
             const updatedAccounts = pendingAccounts.filter(

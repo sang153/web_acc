@@ -1,88 +1,157 @@
 /* src/pages/HomePage.module.css */
 
-/* --- Khu vực chứa các thẻ/tài khoản nổi bật --- */ /* Đổi tên comment nếu muốn */
-.categorySection { /* Bạn có thể đổi tên class này thành featuredSection nếu muốn */
-  width: 90%; /* Chiều rộng của section */
-  max-width: 1200px; /* Chiều rộng tối đa */
-  /* Khoảng cách với phần giới thiệu ở trên và footer ở dưới */
-  margin: 60px auto 80px auto;
-  padding: 30px; /* Padding bên trong section */
-  background-color: rgba(10, 10, 10, 0.4); /* Nền đen hơi mờ (tùy chọn) */
-  border-radius: 10px; /* Bo góc nhẹ */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Đổ bóng nhẹ */
+.homePage {
+
 }
 
-/* --- Tiêu đề của khu vực --- */
+.homePageBackground {
+  background-image: url('/Zoro.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  color: #fff;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.mainContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1400px;
+  margin: 20px auto 0 auto;
+  gap: 30px;
+  background-color: rgba(0, 0, 0, 0.65);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.accountsContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.filterSidebar {
+  flex: 0 0 260px;
+  padding: 20px;
+  background-color: rgba(25, 25, 25, 0.8);
+  border-radius: 6px;
+  align-self: flex-start;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.filterSidebar h3 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #eee;
+  font-size: 1.4em;
+  font-weight: 600;
+  border-bottom: 1px solid #555;
+  padding-bottom: 10px;
+}
+
+.priceFilter {
+
+}
+
+.priceInputGroup {
+  margin-bottom: 18px;
+}
+
+.priceInputGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95em;
+  color: #ccc;
+  font-weight: 500;
+}
+
+.priceInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.priceInput::-webkit-outer-spin-button,
+.priceInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.priceInput[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+.filterButtons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.filterButtons button {
+  flex-grow: 1;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  color: white;
+}
+.filterButtons button:active {
+    transform: scale(0.98);
+}
+
+.applyFilterBtn {
+  background-color: #0088cc;
+}
+.applyFilterBtn:hover {
+  background-color: #006fa6;
+}
+
+.resetFilterBtn {
+  background-color: #6c757d;
+}
+.resetFilterBtn:hover {
+  background-color: #5a6268;
+}
+
+
 .sectionTitle {
   color: #fff;
   text-align: center;
-  font-family: 'Teko', sans-serif; /* Font ví dụ */
-  font-size: 2.8em; /* Cỡ chữ lớn */
+  font-family: 'Teko', sans-serif;
+  font-size: 2.8em;
   font-weight: 700;
-  margin-top: 0; /* Bỏ margin trên */
-  margin-bottom: 40px; /* Khoảng cách với lưới card */
+  margin-top: 0;
+  margin-bottom: 40px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8); /* Bóng đổ */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
   letter-spacing: 1.5px;
 }
 
-/* --- Lưới chứa các thẻ tài khoản nổi bật --- */
-.categoryGrid { /* Bạn có thể đổi tên class này thành featuredGrid nếu muốn */
+.accountsGrid {
   display: grid;
-  /* Mặc định tạo 4 cột bằng nhau trên màn hình lớn */
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px; /* Khoảng cách lớn hơn một chút giữa các card */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
 }
 
-/* --- Responsive adjustments cho lưới --- */
-
-/* Cho màn hình nhỏ hơn (ví dụ: tablet ngang) - 3 cột */
-@media (max-width: 1100px) {
-  .categoryGrid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-  }
-}
-
-/* Cho màn hình tablet đứng - 2 cột */
-@media (max-width: 850px) {
-  .categoryGrid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-  }
-  .categorySection {
-      width: 95%;
-      padding: 25px;
-  }
-  .sectionTitle {
-      font-size: 2.4em;
-      margin-bottom: 30px;
-  }
-}
-
-/* Cho màn hình điện thoại - 1 cột */
-@media (max-width: 576px) {
-  .categoryGrid {
-      grid-template-columns: 1fr; /* Mỗi hàng 1 card */
-      gap: 25px; /* Khoảng cách giữa các card khi xếp dọc */
-  }
-  .categorySection {
-      padding: 20px 15px;
-  }
-  .sectionTitle {
-      font-size: 2em; /* Giảm cỡ chữ tiêu đề trên mobile */
-  }
-}
-
-/* ================================================================== */
-/* === PHẦN BỔ SUNG: STYLES CHO THẺ TÀI KHOẢN NỔI BẬT === */
-/* ================================================================== */
-
-/* Styles for the individual featured account card */
-/* Class này được dùng trong HomePage.jsx: styles.featuredAccountCard */
-.featuredAccountCard {
-  background-color: rgba(40, 40, 40, 0.9);
-  border: 1px solid #666;
+.accountCard {
+  background-color: rgba(35, 35, 35, 0.9);
+  border: 1px solid #555;
   border-radius: 8px;
   padding: 20px;
   display: flex;
@@ -91,44 +160,36 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
   color: white;
-  text-shadow: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
 }
 
-.featuredAccountCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+.accountCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* Style for the description text inside the card */
-/* Class này được dùng trong HomePage.jsx: styles.accountDescription */
 .accountDescription {
   margin-bottom: 15px;
   font-size: 0.95em;
   line-height: 1.5;
-  max-height: 6em; /* Limit height (approx 4 lines) */
-  overflow: hidden;
-  text-overflow: ellipsis;
   color: #e0e0e0;
+  flex-grow: 1;
 }
 
-/* Style for the 'Mô tả:' label part */
 .accountDescription strong {
   color: white;
   margin-right: 5px;
+  font-weight: 600;
 }
 
-/* Style for the price text inside the card */
-/* Class này được dùng trong HomePage.jsx: styles.accountPrice */
 .accountPrice {
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
-  color: #ffeb3b;
+  color: #ffdd57;
   margin-bottom: 15px;
-  margin-top: auto; /* Push price down if description is short */
+  margin-top: 15px;
 }
 
-/* Style for the details button inside the card */
-/* Class này được dùng trong HomePage.jsx: styles.detailsButton */
 .detailsButton {
   display: block;
   text-decoration: none;
@@ -138,13 +199,119 @@
   border-radius: 4px;
   text-align: center;
   transition: background-color 0.2s ease;
-  margin-top: 10px;
+  margin-top: auto;
   border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .detailsButton:hover {
   background-color: #006fa6;
   color: white !important;
 }
-/* ================================================================== */
+
+
+@media (max-width: 1200px) {
+  .accountsGrid {
+     gap: 20px;
+  }
+   .filterSidebar {
+       flex-basis: 230px;
+   }
+   .mainContainer {
+      width: 95%;
+      padding: 25px;
+   }
+}
+
+
+@media (max-width: 992px) {
+   .mainContainer {
+       flex-direction: column;
+       width: 95%;
+       padding: 20px;
+       margin-top: 15px;
+   }
+   .filterSidebar {
+       flex: 0 0 auto;
+       width: 100%;
+       margin-bottom: 30px;
+       align-self: center;
+   }
+   .accountsContent {
+       width: 100%;
+   }
+   .accountsGrid {
+       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   }
+   .sectionTitle {
+      font-size: 2.5em;
+   }
+}
+
+
+@media (max-width: 576px) {
+  .accountsGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .sectionTitle {
+      font-size: 2em;
+      margin-bottom: 25px;
+  }
+  .accountCard {
+      padding: 15px;
+  }
+  .mainContainer {
+      padding: 15px;
+      margin: 15px auto 0 auto;
+      width: 98%;
+      gap: 20px;
+  }
+   .filterSidebar {
+       padding: 15px;
+       margin-bottom: 20px;
+       flex-basis: auto;
+   }
+   .filterButtons {
+      flex-direction: column;
+      gap: 10px;
+   }
+   .filterButtons button {
+      width: 100%;
+   }
+   .accountDescription {
+      font-size: 0.9em;
+   }
+   .accountPrice {
+      font-size: 1.2em;
+   }
+}
+
+
+.loadingMessage,
+.errorMessage,
+.noAccountsMessage {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 1.2em;
+    color: #bbb;
+    font-style: italic;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.errorMessage {
+    color: #ff7675;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.noAccountsMessage {
+   color: #feca57;
+   font-style: normal;
+}

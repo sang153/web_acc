@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
           
           // CHỈ gọi API user nếu không phải admin
           if (!isAdmin) {
-            const response = await axios.get('http://127.0.0.1:8001/api/user', {
+            const response = await axios.get('http://127.0.0.1:8000/api/user', {
               headers: { Authorization: `Bearer ${storedToken}` }
             });
             
@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async (userData, authToken) => {
     try {
       // Thêm lấy thông tin ví như code thứ 2
-      const response = await axios.get('http://127.0.0.1:8001/api/user', {
+      const response = await axios.get('http://127.0.0.1:8000/api/user', {
         headers: { Authorization: `Bearer ${authToken}` }
       });
 

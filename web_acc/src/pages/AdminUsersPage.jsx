@@ -25,7 +25,7 @@ function AdminUsersPage() {
         setLoading(true);
         setError(null);
         try {
-            const response = await axios.get('http://127.0.0.1:8001/api/User');
+            const response = await axios.get('http://127.0.0.1:8000/api/User');
             setAccounts(response.data || []);
         } catch (err) {
             console.error("Lỗi khi fetch tài khoản:", err);
@@ -65,7 +65,7 @@ function AdminUsersPage() {
 
     const deleteAccount = async (id) => {
         try {
-            await axios.delete(`http://127.0.0.1:8001/api/User/${id}`);
+            await axios.delete(`http://127.0.0.1:8000/api/User/${id}`);
             showNotificationMessage('Xóa tài khoản thành công!', 'success');
             setTimeout(() => fetchAccounts(), 500);
         } catch (err) {
@@ -76,7 +76,7 @@ function AdminUsersPage() {
 
     const updateAccount = async () => {
         try {
-            await axios.put(`http://127.0.0.1:8001/api/User/${formValues.id}`, formValues);
+            await axios.put(`http://127.0.0.1:8000/api/User/${formValues.id}`, formValues);
             showNotificationMessage('Cập nhật tài khoản thành công!', 'success');
             resetForm();
             setTimeout(() => fetchAccounts(), 500);
